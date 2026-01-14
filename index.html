@@ -675,41 +675,9 @@
                     </svg>
                 </div>
 
-                <!-- City Markers - Positioned exactly per Figma -->
-                <!-- Seattle: calc(50% - 253px), calc(50% - 178.5px) -->
-                <div class="city-marker" id="marker-seattle" style="left: calc(50% - 253px); top: calc(50% - 178.5px);" data-event="4">
-                    <div class="marker-dot"></div>
-                    <div class="city-name">Seattle</div>
-                </div>
-
-                <!-- San Francisco: calc(50% - 267.31px), calc(50% - 39.12px) -->
-                <div class="city-marker" id="marker-sf" style="left: calc(50% - 267.31px); top: calc(50% - 39.12px);" data-event="0">
-                    <div class="marker-dot"></div>
-                    <div class="city-name">San Francisco</div>
-                </div>
-
-                <!-- Las Vegas: calc(50% - 80px), calc(50% + 79px) - This is the hovered state in Figma -->
-                <div class="city-marker" id="marker-vegas" style="left: calc(50% - 80px); top: calc(50% + 79px);" data-event="1">
-                    <div class="marker-dot"></div>
-                    <div class="city-name">Las Vegas</div>
-                </div>
-
-                <!-- Austin: calc(50% + 37.69px), calc(50% + 153.88px) -->
-                <div class="city-marker" id="marker-austin" style="left: calc(50% + 37.69px); top: calc(50% + 153.88px);" data-event="3">
-                    <div class="marker-dot"></div>
-                    <div class="city-name">Austin</div>
-                </div>
-
-                <!-- New York: calc(50% + 241.19px), calc(50% - 84.12px) - dot on RIGHT -->
-                <div class="city-marker dot-right" id="marker-ny" style="left: calc(50% + 241.19px); top: calc(50% - 84.12px);" data-event="2">
-                    <div class="marker-dot"></div>
-                    <div class="city-name">New York</div>
-                </div>
-
-                <!-- Miami: calc(50% + 287.19px), calc(50% + 178.88px) -->
-                <div class="city-marker" id="marker-miami" style="left: calc(50% + 287.19px); top: calc(50% + 178.88px);" data-event="5">
-                    <div class="marker-dot"></div>
-                    <div class="city-name">Miami</div>
+                <!-- City Markers Container - Populated dynamically by JavaScript -->
+                <div id="markers-container">
+                    <!-- Markers are generated from EVENTS data -->
                 </div>
 
                 <!-- Floating Event Popup - positioned via JS -->
@@ -753,61 +721,144 @@
 </section>
 
 <script>
+    /**
+     * ============================================
+     * ADAPTIVE SECURITY - EVENTS MAP
+     * Webflow CMS Integration Ready
+     * ============================================
+     *
+     * WEBFLOW CMS FIELDS REQUIRED:
+     * - name (Plain Text): Event name, e.g., "Black Hat USA"
+     * - city (Plain Text): City name, e.g., "Las Vegas"
+     * - state (Plain Text): State abbreviation, e.g., "NV"
+     * - date-display (Plain Text): Display date, e.g., "August 2, 2026"
+     * - date-month (Plain Text): Month abbreviation, e.g., "AUG"
+     * - date-day (Plain Text): Day number, e.g., "02"
+     * - type (Option): "conference", "meetup", or "webinar"
+     * - register-url (Link): Registration URL
+     *
+     * TO INTEGRATE WITH WEBFLOW:
+     * 1. Replace the EVENTS array below with your CMS data
+     * 2. In Webflow, output CMS items as JSON in a script tag, or
+     * 3. Use Webflow's embed to populate window.EVENTS before this script
+     */
+
+    // --- CITY POSITION LOOKUP ---
+    // Map coordinates are designer-placed (from Figma), not geographic
+    // Add new cities here as needed - positions are relative to map center
+    const CITY_POSITIONS = {
+        // West Coast
+        'Seattle': { left: 'calc(50% - 253px)', top: 'calc(50% - 178.5px)', dotRight: false },
+        'San Francisco': { left: 'calc(50% - 267.31px)', top: 'calc(50% - 39.12px)', dotRight: false },
+        'Los Angeles': { left: 'calc(50% - 245px)', top: 'calc(50% + 45px)', dotRight: false },
+        'San Diego': { left: 'calc(50% - 230px)', top: 'calc(50% + 75px)', dotRight: false },
+        'Portland': { left: 'calc(50% - 260px)', top: 'calc(50% - 145px)', dotRight: false },
+
+        // Southwest
+        'Las Vegas': { left: 'calc(50% - 80px)', top: 'calc(50% + 79px)', dotRight: false },
+        'Phoenix': { left: 'calc(50% - 155px)', top: 'calc(50% + 95px)', dotRight: false },
+        'Denver': { left: 'calc(50% - 65px)', top: 'calc(50% + 10px)', dotRight: false },
+        'Salt Lake City': { left: 'calc(50% - 125px)', top: 'calc(50% - 35px)', dotRight: false },
+
+        // Texas
+        'Austin': { left: 'calc(50% + 37.69px)', top: 'calc(50% + 153.88px)', dotRight: false },
+        'Houston': { left: 'calc(50% + 85px)', top: 'calc(50% + 175px)', dotRight: false },
+        'Dallas': { left: 'calc(50% + 55px)', top: 'calc(50% + 120px)', dotRight: false },
+        'San Antonio': { left: 'calc(50% + 25px)', top: 'calc(50% + 180px)', dotRight: false },
+
+        // Midwest
+        'Chicago': { left: 'calc(50% + 135px)', top: 'calc(50% - 25px)', dotRight: true },
+        'Minneapolis': { left: 'calc(50% + 75px)', top: 'calc(50% - 95px)', dotRight: false },
+        'Detroit': { left: 'calc(50% + 185px)', top: 'calc(50% - 55px)', dotRight: true },
+        'St. Louis': { left: 'calc(50% + 95px)', top: 'calc(50% + 25px)', dotRight: false },
+        'Kansas City': { left: 'calc(50% + 45px)', top: 'calc(50% + 35px)', dotRight: false },
+
+        // East Coast
+        'New York': { left: 'calc(50% + 241.19px)', top: 'calc(50% - 84.12px)', dotRight: true },
+        'Boston': { left: 'calc(50% + 275px)', top: 'calc(50% - 115px)', dotRight: true },
+        'Philadelphia': { left: 'calc(50% + 245px)', top: 'calc(50% - 55px)', dotRight: true },
+        'Washington DC': { left: 'calc(50% + 235px)', top: 'calc(50% - 25px)', dotRight: true },
+        'Baltimore': { left: 'calc(50% + 240px)', top: 'calc(50% - 35px)', dotRight: true },
+
+        // Southeast
+        'Miami': { left: 'calc(50% + 287.19px)', top: 'calc(50% + 178.88px)', dotRight: true },
+        'Atlanta': { left: 'calc(50% + 195px)', top: 'calc(50% + 85px)', dotRight: true },
+        'Charlotte': { left: 'calc(50% + 225px)', top: 'calc(50% + 45px)', dotRight: true },
+        'Nashville': { left: 'calc(50% + 155px)', top: 'calc(50% + 55px)', dotRight: true },
+        'New Orleans': { left: 'calc(50% + 115px)', top: 'calc(50% + 155px)', dotRight: false },
+        'Tampa': { left: 'calc(50% + 245px)', top: 'calc(50% + 155px)', dotRight: true },
+        'Orlando': { left: 'calc(50% + 255px)', top: 'calc(50% + 135px)', dotRight: true },
+        'Raleigh': { left: 'calc(50% + 235px)', top: 'calc(50% + 25px)', dotRight: true },
+    };
+
     // --- EVENTS DATA ---
-    const EVENTS = [
+    // Replace this with Webflow CMS data or set window.EVENTS before this script
+    const EVENTS = window.EVENTS || [
         {
             id: 0,
             city: "San Francisco",
             state: "CA",
             name: "RSA Conference 2025",
-            date: { month: "APR", day: "28" },
+            dateMonth: "APR",
+            dateDay: "28",
             type: "conference",
-            fullDate: "Apr 28 - May 1"
+            dateDisplay: "Apr 28 - May 1",
+            registerUrl: "#"
         },
         {
             id: 1,
             city: "Las Vegas",
             state: "NV",
             name: "Black Hat USA",
-            date: { month: "AUG", day: "02" },
+            dateMonth: "AUG",
+            dateDay: "02",
             type: "conference",
-            fullDate: "August 2, 2026"
+            dateDisplay: "August 2, 2026",
+            registerUrl: "#"
         },
         {
             id: 2,
             city: "New York",
             state: "NY",
             name: "AI Security Summit",
-            date: { month: "MAR", day: "15" },
+            dateMonth: "MAR",
+            dateDay: "15",
             type: "meetup",
-            fullDate: "Mar 15"
+            dateDisplay: "Mar 15",
+            registerUrl: "#"
         },
         {
             id: 3,
             city: "Austin",
             state: "TX",
             name: "SXSW Cyber Track",
-            date: { month: "MAR", day: "08" },
+            dateMonth: "MAR",
+            dateDay: "08",
             type: "conference",
-            fullDate: "Mar 8-12"
+            dateDisplay: "Mar 8-12",
+            registerUrl: "#"
         },
         {
             id: 4,
             city: "Seattle",
             state: "WA",
             name: "Enterprise Security Workshop",
-            date: { month: "MAY", day: "20" },
+            dateMonth: "MAY",
+            dateDay: "20",
             type: "meetup",
-            fullDate: "May 20"
+            dateDisplay: "May 20",
+            registerUrl: "#"
         },
         {
             id: 5,
             city: "Miami",
             state: "FL",
             name: "FinTech Security Forum",
-            date: { month: "JUN", day: "10" },
+            dateMonth: "JUN",
+            dateDay: "10",
             type: "webinar",
-            fullDate: "Jun 10-11"
+            dateDisplay: "Jun 10-11",
+            registerUrl: "#"
         }
     ];
 
@@ -816,17 +867,62 @@
     const popupTitle = document.getElementById('popup-title');
     const popupDate = document.getElementById('popup-date');
     const popupLocation = document.getElementById('popup-location');
+    const popupLink = popup.querySelector('.event-popup-link');
     const mapWrapper = document.querySelector('.map-wrapper');
+    const markersContainer = document.getElementById('markers-container');
+
+    // --- CREATE MAP MARKERS ---
+    function createMarkers() {
+        // Group events by city to avoid duplicate markers
+        const citiesWithEvents = {};
+        EVENTS.forEach((event, index) => {
+            const cityKey = event.city;
+            if (!citiesWithEvents[cityKey]) {
+                citiesWithEvents[cityKey] = [];
+            }
+            citiesWithEvents[cityKey].push({ ...event, index });
+        });
+
+        // Create a marker for each city that has events
+        Object.entries(citiesWithEvents).forEach(([city, events]) => {
+            const position = CITY_POSITIONS[city];
+            if (!position) {
+                console.warn(`No position defined for city: ${city}. Add it to CITY_POSITIONS.`);
+                return;
+            }
+
+            // Use the first event for this city
+            const primaryEvent = events[0];
+
+            const marker = document.createElement('div');
+            marker.className = `city-marker${position.dotRight ? ' dot-right' : ''}`;
+            marker.style.left = position.left;
+            marker.style.top = position.top;
+            marker.dataset.eventIndex = primaryEvent.index;
+            marker.dataset.city = city;
+
+            marker.innerHTML = `
+                <div class="marker-dot"></div>
+                <div class="city-name">${city}</div>
+            `;
+
+            // Add hover events
+            marker.addEventListener('mouseenter', () => showPopup(primaryEvent, marker));
+            marker.addEventListener('mouseleave', hidePopup);
+
+            markersContainer.appendChild(marker);
+        });
+    }
 
     // --- POPUP FUNCTIONS ---
-    function showPopup(eventId, markerElement) {
-        const event = EVENTS.find(e => e.id === eventId);
-        if (!event) return;
-
+    function showPopup(event, markerElement) {
         // Update popup content
         popupTitle.textContent = event.name;
-        popupDate.textContent = event.fullDate;
+        popupDate.textContent = event.dateDisplay;
         popupLocation.textContent = `${event.city}, ${event.state}`;
+        if (popupLink && event.registerUrl) {
+            popupLink.href = event.registerUrl;
+        }
 
         // Get marker dot position
         const dotElement = markerElement.querySelector('.marker-dot');
@@ -835,11 +931,10 @@
 
         // Position popup to the right of the dot (like in Figma)
         const popupWidth = 304;
-        const gap = 8; // gap between dot and popup
+        const gap = 8;
 
-        // Calculate position - popup appears to the right of the dot
         let popupLeft = dotRect.right - wrapperRect.left + gap;
-        let popupTop = dotRect.top - wrapperRect.top - 5; // slightly above dot center
+        let popupTop = dotRect.top - wrapperRect.top - 5;
 
         // If popup would overflow right edge, position it to the left
         if (popupLeft + popupWidth > wrapperRect.width) {
@@ -860,33 +955,30 @@
         popup.classList.remove('visible');
     }
 
-    // --- MARKER EVENT LISTENERS ---
-    document.querySelectorAll('.city-marker').forEach(marker => {
-        const eventId = parseInt(marker.dataset.event);
-
-        marker.addEventListener('mouseenter', () => {
-            showPopup(eventId, marker);
-        });
-
-        marker.addEventListener('mouseleave', () => {
-            hidePopup();
-        });
-    });
-
     // --- POPULATE EVENT CARDS ---
+    // Note: In Webflow, you'll likely use a CMS Collection List instead
+    // This function is for standalone usage
     function populateEventCards() {
         const grid = document.getElementById('events-grid');
+        if (!grid) return;
 
-        EVENTS.forEach((event) => {
+        // Update event count
+        const countEl = document.querySelector('.events-count');
+        if (countEl) {
+            countEl.innerHTML = `<span class="dot"></span>${EVENTS.length} events scheduled`;
+        }
+
+        EVENTS.forEach((event, index) => {
             const card = document.createElement('div');
             card.className = 'event-card';
-            card.dataset.event = event.id;
+            card.dataset.eventIndex = index;
+            card.dataset.city = event.city;
 
             card.innerHTML = `
                 <div class="event-card-header">
                     <div class="event-date">
-                        <span class="month">${event.date.month}</span>
-                        <span class="day">${event.date.day}</span>
+                        <span class="month">${event.dateMonth}</span>
+                        <span class="day">${event.dateDay}</span>
                     </div>
                     <div class="event-meta">
                         <h3>${event.name}</h3>
@@ -902,19 +994,19 @@
                 <span class="event-tag ${event.type}">${event.type}</span>
             `;
 
+            // Highlight corresponding marker on hover
             card.addEventListener('mouseenter', () => {
-                // Highlight corresponding marker
-                const marker = document.querySelector(`.city-marker[data-event="${event.id}"]`);
+                const marker = document.querySelector(`.city-marker[data-city="${event.city}"]`);
                 if (marker) {
-                    marker.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                    marker.classList.add('highlighted');
                 }
                 card.classList.add('active');
             });
 
             card.addEventListener('mouseleave', () => {
-                const marker = document.querySelector(`.city-marker[data-event="${event.id}"]`);
+                const marker = document.querySelector(`.city-marker[data-city="${event.city}"]`);
                 if (marker) {
-                    marker.style.transform = 'translate(-50%, -50%)';
+                    marker.classList.remove('highlighted');
                 }
                 card.classList.remove('active');
             });
@@ -923,7 +1015,8 @@
         });
     }
 
-    // Initialize
+    // --- INITIALIZE ---
+    createMarkers();
     populateEventCards();
 </script>
 </body>

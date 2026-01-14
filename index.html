@@ -327,6 +327,7 @@
         .event-popup.visible {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
 
         .event-popup h3 {
@@ -910,14 +911,32 @@
 
             // Add hover events
             marker.addEventListener('mouseenter', () => showPopup(primaryEvent, marker));
-            marker.addEventListener('mouseleave', hidePopup);
+            marker.addEventListener('mouseleave', scheduleHidePopup);
 
             markersContainer.appendChild(marker);
         });
     }
 
     // --- POPUP FUNCTIONS ---
+    let hideTimeout = null;
+
+    function cancelHidePopup() {
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+        }
+    }
+
+    function scheduleHidePopup() {
+        cancelHidePopup();
+        hideTimeout = setTimeout(() => {
+            popup.classList.remove('visible');
+        }, 100); // Small delay allows mouse to reach popup
+    }
+
     function showPopup(event, markerElement) {
+        cancelHidePopup(); // Cancel any pending hide
+
         // Update popup content
         popupTitle.textContent = event.name;
         popupDate.textContent = event.dateDisplay;
@@ -953,9 +972,9 @@
         popup.classList.add('visible');
     }
 
-    function hidePopup() {
-        popup.classList.remove('visible');
-    }
+    // Popup hover events - keep popup open when mouse is inside
+    popup.addEventListener('mouseenter', cancelHidePopup);
+    popup.addEventListener('mouseleave', scheduleHidePopup);
 
     // --- POPULATE EVENT CARDS ---
     // Note: In Webflow, you'll likely use a CMS Collection List instead

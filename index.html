@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adaptive Security | Events & Webinars</title>
+    <title>Adaptive Security | Upcoming Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #ffffff;
+            background: linear-gradient(180deg, #FFF9F5 0%, #FFF5ED 50%, #FFEEE0 100%);
             min-height: 100vh;
             color: #262626;
         }
@@ -25,17 +25,9 @@
         .top-banner {
             background: #EA580C;
             padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            text-align: center;
             font-size: 14px;
             color: white;
-        }
-
-        .top-banner-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .top-banner a {
@@ -47,28 +39,11 @@
         }
 
         .top-banner .badge {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 4px 10px;
+            background: #DC2626;
+            padding: 2px 8px;
             border-radius: 4px;
             font-weight: 600;
             font-size: 12px;
-        }
-
-        .top-banner-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .top-banner-right a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .top-banner-right a:hover {
-            opacity: 1;
         }
 
         /* Navigation */
@@ -81,6 +56,12 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
         .nav-logo svg {
             height: 24px;
             width: auto;
@@ -89,7 +70,7 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 28px;
         }
 
         .nav-links a {
@@ -97,227 +78,186 @@
             text-decoration: none;
             font-size: 15px;
             font-weight: 500;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
         }
 
         .nav-links a svg {
-            width: 16px;
-            height: 16px;
-            opacity: 0.5;
+            width: 12px;
+            height: 12px;
+            opacity: 0.6;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-right-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-right-links a {
+            color: #525252;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .nav-btn {
-            background: transparent;
-            color: #262626;
+            background: #EA580C;
+            color: white;
             padding: 10px 20px;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            border: 1px solid #e5e5e5;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
 
         .nav-btn:hover {
-            border-color: #262626;
-            background: #f5f5f5;
+            background: #DC2626;
         }
 
         /* Hero Section */
         .hero {
-            background: #1a1a1a;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-container {
+            padding: 80px 40px;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 40px 80px;
+        }
+
+        .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 40px;
-            align-items: center;
-            min-height: 500px;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 60px;
+            align-items: start;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-avatars {
-            display: flex;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 3px solid #1a1a1a;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 18px;
-            position: relative;
-        }
-
-        .avatar:nth-child(2) {
-            margin-left: -12px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .avatar .status {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 12px;
-            height: 12px;
-            background: #22c55e;
-            border-radius: 50%;
-            border: 2px solid #1a1a1a;
+            padding-top: 40px;
         }
 
         .hero-title {
-            font-size: 48px;
-            font-weight: 600;
-            line-height: 1.1;
-            color: #ffffff;
+            font-size: 52px;
+            font-weight: 400;
+            line-height: 1.15;
+            color: #262626;
             margin-bottom: 20px;
             letter-spacing: -1px;
         }
 
         .hero-subtitle {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 17px;
+            color: #525252;
             line-height: 1.7;
             margin-bottom: 32px;
             max-width: 420px;
         }
 
         .hero-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: transparent;
-            color: white;
-            padding: 14px 28px;
+            color: #EA580C;
+            padding: 12px 24px;
+            border: 2px solid #EA580C;
             border-radius: 8px;
             font-size: 15px;
             font-weight: 600;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.2s;
         }
 
         .hero-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: #EA580C;
+            color: white;
         }
 
         /* Map Container */
-        .map-wrapper {
+        .map-container {
             position: relative;
-            height: 420px;
         }
 
-        .map-label {
-            position: absolute;
-            top: 0;
-            right: 0;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
+        .map-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: flex-end;
+        }
+
+        .map-header-label {
+            font-size: 14px;
             font-weight: 500;
+            color: #525252;
         }
 
-        #map-container {
-            width: 100%;
-            height: 100%;
+        .map-header-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .map-header-icons img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            margin-left: -8px;
+        }
+
+        .map-header-icons img:first-child {
+            margin-left: 0;
+        }
+
+        .map-wrapper {
+            background: #262626;
+            border-radius: 20px;
+            overflow: hidden;
             position: relative;
+            height: 500px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
         }
 
-        #map-svg {
+        #canvas-container {
             width: 100%;
             height: 100%;
         }
 
-        /* City Markers */
-        .city-marker {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .city-marker:hover {
-            transform: scale(1.2);
-        }
-
-        .city-marker circle.outer {
-            fill: none;
-            stroke: #EA580C;
-            stroke-width: 2;
-            opacity: 0.5;
-        }
-
-        .city-marker circle.inner {
-            fill: #EA580C;
-        }
-
-        .city-marker.active circle.outer {
-            animation: pulse-ring 1.5s ease-out infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                r: 8;
-                opacity: 0.6;
-            }
-            100% {
-                r: 20;
-                opacity: 0;
-            }
-        }
-
-        /* City Labels */
-        .city-label {
+        .map-hint {
             position: absolute;
-            color: white;
-            font-family: 'Inter', sans-serif;
+            bottom: 16px;
+            left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255, 255, 255, 0.4);
             font-size: 12px;
-            font-weight: 600;
-            padding: 6px 12px;
-            background: #EA580C;
-            border-radius: 6px;
-            white-space: nowrap;
             pointer-events: none;
-            transform: translate(-50%, -100%);
-            margin-top: -12px;
-            box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
         }
 
-        /* Event Popup Card */
+        .map-hint svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
+        }
+
+        /* Floating Event Popup Card */
         .event-popup {
             position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
             background: white;
             border-radius: 12px;
-            padding: 20px;
-            width: 280px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            transform: translateY(10px);
-        }
-
-        .event-popup.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+            padding: 20px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            min-width: 220px;
+            z-index: 10;
         }
 
         .event-popup h3 {
@@ -331,24 +271,42 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #737373;
             font-size: 14px;
+            color: #525252;
             margin-bottom: 16px;
         }
 
-        .event-popup-meta svg {
+        .event-popup-meta .dot {
+            width: 4px;
+            height: 4px;
+            background: #a3a3a3;
+            border-radius: 50%;
+        }
+
+        .event-popup-location {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .event-popup-location svg {
             width: 14px;
             height: 14px;
         }
 
         .event-popup-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             color: #262626;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+        }
+
+        .event-popup-link svg {
+            width: 16px;
+            height: 16px;
         }
 
         .event-popup-link:hover {
@@ -357,7 +315,7 @@
 
         /* Events Section */
         .events-section {
-            padding: 60px 40px 80px;
+            padding: 0 40px 80px;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -367,119 +325,33 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 32px;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
         .events-title {
-            font-size: 32px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 400;
             color: #262626;
         }
 
-        .events-controls {
+        .events-count {
             display: flex;
             align-items: center;
-            gap: 16px;
-        }
-
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: #f5f5f5;
-            padding: 4px;
-            border-radius: 8px;
-        }
-
-        .filter-tab {
-            padding: 8px 16px;
-            border-radius: 6px;
+            gap: 8px;
             font-size: 14px;
-            font-weight: 500;
             color: #737373;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            background: transparent;
         }
 
-        .filter-tab:hover {
-            color: #262626;
+        .events-count .dot {
+            width: 8px;
+            height: 8px;
+            background: #EA580C;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
         }
 
-        .filter-tab.active {
-            background: white;
-            color: #262626;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Location Dropdown */
-        .location-dropdown {
-            position: relative;
-        }
-
-        .location-dropdown select {
-            appearance: none;
-            padding: 10px 36px 10px 16px;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #262626;
-            background: white;
-            cursor: pointer;
-            min-width: 150px;
-        }
-
-        .location-dropdown::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid #737373;
-            pointer-events: none;
-        }
-
-        /* Search Input */
-        .search-input {
-            position: relative;
-        }
-
-        .search-input input {
-            padding: 10px 16px 10px 40px;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #262626;
-            width: 200px;
-            transition: all 0.2s;
-        }
-
-        .search-input input:focus {
-            outline: none;
-            border-color: #EA580C;
-            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
-        }
-
-        .search-input input::placeholder {
-            color: #a3a3a3;
-        }
-
-        .search-input svg {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            color: #a3a3a3;
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
 
         /* Event Cards Grid */
@@ -591,60 +463,59 @@
             color: #EA580C;
         }
 
+        /* Loading */
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* City Labels */
+        .city-label {
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            background: rgba(234, 88, 12, 0.9);
+            border-radius: 4px;
+            white-space: nowrap;
+            pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
-            .hero-container {
+            .hero-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
 
             .hero-content {
+                padding-top: 0;
                 text-align: center;
-            }
-
-            .hero-avatars {
-                justify-content: center;
             }
 
             .hero-subtitle {
                 max-width: none;
             }
 
-            .map-wrapper {
-                height: 350px;
-            }
-
-            .map-label {
-                position: static;
-                text-align: center;
-                margin-bottom: 16px;
-            }
-
             .events-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .events-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .events-controls {
-                flex-wrap: wrap;
             }
         }
 
         @media (max-width: 768px) {
-            .hero-container {
-                padding: 40px 20px 60px;
+            .hero {
+                padding: 40px 20px;
             }
 
             .hero-title {
                 font-size: 36px;
-            }
-
-            .events-section {
-                padding: 40px 20px 60px;
             }
 
             .events-grid {
@@ -655,17 +526,18 @@
                 display: none;
             }
 
-            .top-banner-right {
+            .nav-right-links {
                 display: none;
             }
 
-            .filter-tabs {
-                width: 100%;
-                justify-content: center;
+            .event-popup {
+                bottom: 60px;
+                padding: 16px 20px;
+                min-width: 180px;
             }
 
-            .search-input input {
-                width: 100%;
+            .event-popup h3 {
+                font-size: 16px;
             }
         }
     </style>
@@ -674,78 +546,98 @@
 
 <!-- Top Banner -->
 <div class="top-banner">
-    <a href="#" class="top-banner-left">
+    <a href="#">
         <span class="badge">New Funding</span>
         We raised an $81M Series B from NVIDIA, BCV, and others →
     </a>
-    <div class="top-banner-right">
-        <a href="#">Sales</a>
-        <a href="#">Support</a>
-        <a href="#">Log In</a>
-    </div>
 </div>
 
 <!-- Navigation -->
 <nav class="nav">
-    <a href="/" class="nav-logo">
-        <svg width="121" height="22" viewBox="0 0 121 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26.6878 17.3958C26.4934 17.3958 26.3588 17.2017 26.4269 17.0196L32.2179 1.54794C32.2797 1.38288 32.4374 1.2735 32.6137 1.2735H35.2057C35.3821 1.2735 35.54 1.38312 35.6016 1.54843L41.3704 17.0199C41.4383 17.2019 41.3037 17.3958 41.1094 17.3958H38.9472C38.7711 17.3958 38.6135 17.2866 38.5516 17.1218L37.1962 13.5144C37.1729 13.4524 37.1135 13.4113 37.0472 13.4113H30.6573C30.591 13.4113 30.5317 13.4524 30.5084 13.5144L29.153 17.1218C29.091 17.2866 28.9334 17.3958 28.7574 17.3958H26.6878ZM31.323 11.0474C31.3041 11.0993 31.3426 11.1541 31.3978 11.1541H36.3064C36.3617 11.1541 36.4002 11.0991 36.3811 11.0472L33.9158 4.33375C33.8902 4.26412 33.7917 4.26426 33.7663 4.33396L31.323 11.0474Z" fill="#262626"/>
-            <path d="M47.9303 17.534C44.7288 17.534 42.3565 15.2768 42.3565 11.4996C42.3565 7.8606 44.7288 5.46529 47.9303 5.46529C49.648 5.46529 50.8653 6.1058 51.6009 7.05094C51.6491 7.11291 51.7537 7.07985 51.7537 7.00133V1.69606C51.7537 1.46269 51.9429 1.2735 52.1762 1.2735H53.8186C54.052 1.2735 54.2412 1.46269 54.2412 1.69606V16.9732C54.2412 17.2066 54.052 17.3958 53.8186 17.3958H52.4387C52.2301 17.3958 52.0527 17.2436 52.021 17.0375L51.8288 15.7881C51.8181 15.7182 51.7276 15.6955 51.6836 15.7509C50.8977 16.741 49.7061 17.534 47.9303 17.534ZM48.3449 15.415C50.4178 15.415 51.7767 13.8489 51.7767 11.5457C51.7767 9.17341 50.4178 7.58421 48.3449 7.58421C46.272 7.58421 44.9131 9.17341 44.9131 11.4996C44.9131 13.8489 46.272 15.415 48.3449 15.415Z" fill="#262626"/>
-            <path d="M60.9129 17.534C58.3332 17.534 56.5367 16.2672 56.5367 14.0792C56.5367 11.6608 58.2872 10.302 61.5808 10.302H64.4724C64.5164 10.302 64.552 10.2663 64.552 10.2224V9.58798C64.552 8.2291 63.6077 7.46906 61.9724 7.46906C60.6237 7.46906 59.7283 7.99479 59.4147 8.85325C59.3443 9.04622 59.1737 9.19644 58.9682 9.19644H57.3538C57.1021 9.19644 56.9043 8.97671 56.9593 8.73114C57.4144 6.7025 59.3219 5.46529 62.0875 5.46529C65.2199 5.46529 67.0165 6.96236 67.0165 9.7492V14.4707C67.0165 15.0696 67.2468 15.2308 67.7765 15.2308H67.8607C68.0941 15.2308 68.2832 15.42 68.2832 15.6533V16.9732C68.2832 17.2066 68.0941 17.3958 67.8607 17.3958H66.9704C65.4272 17.3958 64.8053 16.6818 64.8053 15.5993C64.8053 15.5858 64.7877 15.5806 64.7803 15.5919C64.0408 16.7233 62.8259 17.534 60.9129 17.534ZM61.2584 15.5993C63.3313 15.5993 64.552 14.3786 64.552 12.5591V12.2241C64.552 12.1801 64.5164 12.1445 64.4724 12.1445H61.4656C59.9225 12.1445 59.0703 12.7203 59.0703 13.8949C59.0703 14.9774 59.8994 15.5993 61.2584 15.5993Z" fill="#262626"/>
-            <path d="M70.6098 22.0021C70.3764 22.0021 70.1872 21.8129 70.1872 21.5796V6.02604C70.1872 5.79267 70.3764 5.60348 70.6098 5.60348H72.0088C72.2191 5.60348 72.3974 5.75811 72.4271 5.96628L72.6016 7.18772C72.6116 7.25776 72.7018 7.28145 72.7464 7.2265C73.5324 6.2572 74.7235 5.46529 76.4981 5.46529C79.7226 5.46529 82.095 7.72241 82.095 11.4996C82.095 15.1386 79.7226 17.534 76.5211 17.534C74.804 17.534 73.5869 16.8939 72.8512 15.9306C72.8033 15.8678 72.6978 15.9007 72.6978 15.9796V21.5796C72.6978 21.8129 72.5086 22.0021 72.2752 22.0021H70.6098ZM76.0835 15.415C78.1564 15.415 79.5384 13.8489 79.5384 11.4996C79.5384 9.17341 78.1564 7.58421 76.0835 7.58421C74.0336 7.58421 72.6517 9.17341 72.6517 11.4766C72.6517 13.8258 74.0336 15.415 76.0835 15.415Z" fill="#262626"/>
-            <path d="M87.9815 17.3958C85.7243 17.3958 84.78 16.3363 84.78 14.1943V7.87107C84.78 7.82712 84.7443 7.7915 84.7004 7.7915H83.1526C82.9193 7.7915 82.7301 7.60231 82.7301 7.36894V6.02604C82.7301 5.79267 82.9193 5.60348 83.1526 5.60348H84.7004C84.7443 5.60348 84.78 5.56786 84.78 5.52391V2.73249C84.78 2.49912 84.9691 2.30993 85.2025 2.30993H86.8449C87.0783 2.30993 87.2675 2.49912 87.2675 2.73249V5.52391C87.2675 5.56786 87.3031 5.60348 87.347 5.60348H89.8852C90.1186 5.60348 90.3077 5.79267 90.3077 6.02604V7.36894C90.3077 7.60231 90.1186 7.7915 89.8852 7.7915H87.347C87.3031 7.7915 87.2675 7.82712 87.2675 7.87107V13.941C87.2675 14.8623 87.6129 15.2077 88.5573 15.2077H89.8852C90.1186 15.2077 90.3077 15.3969 90.3077 15.6303V16.9732C90.3077 17.2066 90.1186 17.3958 89.8852 17.3958H87.9815Z" fill="#262626"/>
-            <path d="M92.7508 17.3958C92.5174 17.3958 92.3282 17.2066 92.3282 16.9732V6.02604C92.3282 5.79267 92.5174 5.60348 92.7508 5.60348H94.4162C94.6496 5.60348 94.8388 5.79267 94.8388 6.02604V16.9732C94.8388 17.2066 94.6496 17.3958 94.4162 17.3958H92.7508Z" fill="#262626"/>
-            <path d="M101.005 17.3958C100.872 17.3958 100.753 17.3127 100.707 17.1877L96.5702 5.98275C96.5023 5.7988 96.6384 5.60348 96.8345 5.60348H98.8039C98.9826 5.60348 99.142 5.71592 99.2019 5.8843L102.274 14.5121C102.299 14.5827 102.399 14.5825 102.424 14.5117L105.452 5.88609C105.511 5.71679 105.671 5.60348 105.851 5.60348H107.772C107.969 5.60348 108.105 5.7988 108.037 5.98275L103.9 17.1877C103.854 17.3127 103.735 17.3958 103.602 17.3958H101.005Z" fill="#262626"/>
-            <path d="M114.736 17.534C111.028 17.534 108.702 15.1386 108.702 11.5227C108.702 7.88363 111.028 5.46529 114.506 5.46529C117.892 5.46529 120.218 7.65331 120.218 11.2002V11.7707C120.218 11.9263 120.092 12.0524 119.936 12.0524H111.384C111.34 12.0524 111.304 12.088 111.304 12.132V12.1906C111.304 14.1713 112.64 15.5072 114.598 15.5072C116.014 15.5072 117.081 14.8673 117.514 13.7654C117.584 13.5874 117.748 13.4573 117.939 13.4573H119.766C119.941 13.4573 120.075 13.6166 120.032 13.7868C119.491 15.9275 117.52 17.534 114.736 17.534ZM111.385 10.1205C111.378 10.1677 111.415 10.2098 111.463 10.2098H117.595C117.642 10.2098 117.679 10.1678 117.673 10.1206C117.436 8.42579 116.249 7.46906 114.529 7.46906C112.99 7.46906 111.629 8.44758 111.385 10.1205Z" fill="#262626"/>
-            <path d="M92.2145 1.95189C92.2145 1.51247 92.5707 1.15625 93.0101 1.15625H94.1241C94.5635 1.15625 94.9198 1.51247 94.9198 1.95189V3.0658C94.9198 3.50522 94.5635 3.86144 94.1241 3.86144H93.0101C92.5707 3.86144 92.2145 3.50522 92.2145 3.0658V1.95189Z" fill="#262626"/>
-            <path d="M6.75909 7.68568C6.75909 6.84723 7.43881 6.16753 8.27728 6.16753H11.1713C12.0098 6.16753 12.6895 6.84723 12.6895 7.68568V10.8169C12.6895 11.6553 12.0098 12.335 11.1713 12.335H8.27728C7.4388 12.335 6.75909 11.6553 6.75909 10.8169V7.68568Z" fill="#262626"/>
-            <path d="M13.9997 0C16.7488 0 18.9774 2.22852 18.9774 4.97754V10.5071C18.9774 10.6381 18.8712 10.7443 18.7402 10.7443H16.0106C15.8796 10.7443 15.7734 10.6381 15.7734 10.5071L15.6531 5.8841C15.6531 4.33778 14.6128 3.08423 13.0664 3.08423H6.06655C4.52021 3.08427 3.32104 4.3378 3.32104 5.8841V12.9372C3.32105 14.4835 4.52021 15.6559 6.06655 15.6559H11.3446C11.4756 15.6559 11.5818 15.7621 11.5818 15.8931V18.2652C11.5818 18.3963 11.4756 18.5025 11.3446 18.5025H4.97768C2.22858 18.5025 0 16.5928 0 13.8438V4.97754C1.90422e-07 2.22852 2.22858 0 4.97768 0H13.9997Z" fill="#262626"/>
-            <path d="M14.0742 14.6653C14.0742 14.0102 14.6052 13.3954 15.2603 13.3954H17.3673C18.0224 13.3954 18.6232 14.0102 18.6232 14.6653V16.842C18.6232 17.497 18.0224 18.0419 17.3673 18.0419H15.2603C14.6052 18.0419 14.0742 17.497 14.0742 16.842V14.6653Z" fill="#262626"/>
-        </svg>
-    </a>
-    <div class="nav-links">
-        <a href="#">Products <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
-        <a href="#">Solutions <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
-        <a href="#">Customers</a>
-        <a href="#">Resources <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
-        <a href="#">Pricing</a>
+    <div class="nav-left">
+        <a href="/" class="nav-logo">
+            <svg width="121" height="22" viewBox="0 0 121 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26.6878 17.3958C26.4934 17.3958 26.3588 17.2017 26.4269 17.0196L32.2179 1.54794C32.2797 1.38288 32.4374 1.2735 32.6137 1.2735H35.2057C35.3821 1.2735 35.54 1.38312 35.6016 1.54843L41.3704 17.0199C41.4383 17.2019 41.3037 17.3958 41.1094 17.3958H38.9472C38.7711 17.3958 38.6135 17.2866 38.5516 17.1218L37.1962 13.5144C37.1729 13.4524 37.1135 13.4113 37.0472 13.4113H30.6573C30.591 13.4113 30.5317 13.4524 30.5084 13.5144L29.153 17.1218C29.091 17.2866 28.9334 17.3958 28.7574 17.3958H26.6878ZM31.323 11.0474C31.3041 11.0993 31.3426 11.1541 31.3978 11.1541H36.3064C36.3617 11.1541 36.4002 11.0991 36.3811 11.0472L33.9158 4.33375C33.8902 4.26412 33.7917 4.26426 33.7663 4.33396L31.323 11.0474Z" fill="#262626"/>
+                <path d="M47.9303 17.534C44.7288 17.534 42.3565 15.2768 42.3565 11.4996C42.3565 7.8606 44.7288 5.46529 47.9303 5.46529C49.648 5.46529 50.8653 6.1058 51.6009 7.05094C51.6491 7.11291 51.7537 7.07985 51.7537 7.00133V1.69606C51.7537 1.46269 51.9429 1.2735 52.1762 1.2735H53.8186C54.052 1.2735 54.2412 1.46269 54.2412 1.69606V16.9732C54.2412 17.2066 54.052 17.3958 53.8186 17.3958H52.4387C52.2301 17.3958 52.0527 17.2436 52.021 17.0375L51.8288 15.7881C51.8181 15.7182 51.7276 15.6955 51.6836 15.7509C50.8977 16.741 49.7061 17.534 47.9303 17.534ZM48.3449 15.415C50.4178 15.415 51.7767 13.8489 51.7767 11.5457C51.7767 9.17341 50.4178 7.58421 48.3449 7.58421C46.272 7.58421 44.9131 9.17341 44.9131 11.4996C44.9131 13.8489 46.272 15.415 48.3449 15.415Z" fill="#262626"/>
+                <path d="M60.9129 17.534C58.3332 17.534 56.5367 16.2672 56.5367 14.0792C56.5367 11.6608 58.2872 10.302 61.5808 10.302H64.4724C64.5164 10.302 64.552 10.2663 64.552 10.2224V9.58798C64.552 8.2291 63.6077 7.46906 61.9724 7.46906C60.6237 7.46906 59.7283 7.99479 59.4147 8.85325C59.3443 9.04622 59.1737 9.19644 58.9682 9.19644H57.3538C57.1021 9.19644 56.9043 8.97671 56.9593 8.73114C57.4144 6.7025 59.3219 5.46529 62.0875 5.46529C65.2199 5.46529 67.0165 6.96236 67.0165 9.7492V14.4707C67.0165 15.0696 67.2468 15.2308 67.7765 15.2308H67.8607C68.0941 15.2308 68.2832 15.42 68.2832 15.6533V16.9732C68.2832 17.2066 68.0941 17.3958 67.8607 17.3958H66.9704C65.4272 17.3958 64.8053 16.6818 64.8053 15.5993C64.8053 15.5858 64.7877 15.5806 64.7803 15.5919C64.0408 16.7233 62.8259 17.534 60.9129 17.534ZM61.2584 15.5993C63.3313 15.5993 64.552 14.3786 64.552 12.5591V12.2241C64.552 12.1801 64.5164 12.1445 64.4724 12.1445H61.4656C59.9225 12.1445 59.0703 12.7203 59.0703 13.8949C59.0703 14.9774 59.8994 15.5993 61.2584 15.5993Z" fill="#262626"/>
+                <path d="M70.6098 22.0021C70.3764 22.0021 70.1872 21.8129 70.1872 21.5796V6.02604C70.1872 5.79267 70.3764 5.60348 70.6098 5.60348H72.0088C72.2191 5.60348 72.3974 5.75811 72.4271 5.96628L72.6016 7.18772C72.6116 7.25776 72.7018 7.28145 72.7464 7.2265C73.5324 6.2572 74.7235 5.46529 76.4981 5.46529C79.7226 5.46529 82.095 7.72241 82.095 11.4996C82.095 15.1386 79.7226 17.534 76.5211 17.534C74.804 17.534 73.5869 16.8939 72.8512 15.9306C72.8033 15.8678 72.6978 15.9007 72.6978 15.9796V21.5796C72.6978 21.8129 72.5086 22.0021 72.2752 22.0021H70.6098ZM76.0835 15.415C78.1564 15.415 79.5384 13.8489 79.5384 11.4996C79.5384 9.17341 78.1564 7.58421 76.0835 7.58421C74.0336 7.58421 72.6517 9.17341 72.6517 11.4766C72.6517 13.8258 74.0336 15.415 76.0835 15.415Z" fill="#262626"/>
+                <path d="M87.9815 17.3958C85.7243 17.3958 84.78 16.3363 84.78 14.1943V7.87107C84.78 7.82712 84.7443 7.7915 84.7004 7.7915H83.1526C82.9193 7.7915 82.7301 7.60231 82.7301 7.36894V6.02604C82.7301 5.79267 82.9193 5.60348 83.1526 5.60348H84.7004C84.7443 5.60348 84.78 5.56786 84.78 5.52391V2.73249C84.78 2.49912 84.9691 2.30993 85.2025 2.30993H86.8449C87.0783 2.30993 87.2675 2.49912 87.2675 2.73249V5.52391C87.2675 5.56786 87.3031 5.60348 87.347 5.60348H89.8852C90.1186 5.60348 90.3077 5.79267 90.3077 6.02604V7.36894C90.3077 7.60231 90.1186 7.7915 89.8852 7.7915H87.347C87.3031 7.7915 87.2675 7.82712 87.2675 7.87107V13.941C87.2675 14.8623 87.6129 15.2077 88.5573 15.2077H89.8852C90.1186 15.2077 90.3077 15.3969 90.3077 15.6303V16.9732C90.3077 17.2066 90.1186 17.3958 89.8852 17.3958H87.9815Z" fill="#262626"/>
+                <path d="M92.7508 17.3958C92.5174 17.3958 92.3282 17.2066 92.3282 16.9732V6.02604C92.3282 5.79267 92.5174 5.60348 92.7508 5.60348H94.4162C94.6496 5.60348 94.8388 5.79267 94.8388 6.02604V16.9732C94.8388 17.2066 94.6496 17.3958 94.4162 17.3958H92.7508Z" fill="#262626"/>
+                <path d="M101.005 17.3958C100.872 17.3958 100.753 17.3127 100.707 17.1877L96.5702 5.98275C96.5023 5.7988 96.6384 5.60348 96.8345 5.60348H98.8039C98.9826 5.60348 99.142 5.71592 99.2019 5.8843L102.274 14.5121C102.299 14.5827 102.399 14.5825 102.424 14.5117L105.452 5.88609C105.511 5.71679 105.671 5.60348 105.851 5.60348H107.772C107.969 5.60348 108.105 5.7988 108.037 5.98275L103.9 17.1877C103.854 17.3127 103.735 17.3958 103.602 17.3958H101.005Z" fill="#262626"/>
+                <path d="M114.736 17.534C111.028 17.534 108.702 15.1386 108.702 11.5227C108.702 7.88363 111.028 5.46529 114.506 5.46529C117.892 5.46529 120.218 7.65331 120.218 11.2002V11.7707C120.218 11.9263 120.092 12.0524 119.936 12.0524H111.384C111.34 12.0524 111.304 12.088 111.304 12.132V12.1906C111.304 14.1713 112.64 15.5072 114.598 15.5072C116.014 15.5072 117.081 14.8673 117.514 13.7654C117.584 13.5874 117.748 13.4573 117.939 13.4573H119.766C119.941 13.4573 120.075 13.6166 120.032 13.7868C119.491 15.9275 117.52 17.534 114.736 17.534ZM111.385 10.1205C111.378 10.1677 111.415 10.2098 111.463 10.2098H117.595C117.642 10.2098 117.679 10.1678 117.673 10.1206C117.436 8.42579 116.249 7.46906 114.529 7.46906C112.99 7.46906 111.629 8.44758 111.385 10.1205Z" fill="#262626"/>
+                <path d="M92.2145 1.95189C92.2145 1.51247 92.5707 1.15625 93.0101 1.15625H94.1241C94.5635 1.15625 94.9198 1.51247 94.9198 1.95189V3.0658C94.9198 3.50522 94.5635 3.86144 94.1241 3.86144H93.0101C92.5707 3.86144 92.2145 3.50522 92.2145 3.0658V1.95189Z" fill="#262626"/>
+                <path d="M6.75909 7.68568C6.75909 6.84723 7.43881 6.16753 8.27728 6.16753H11.1713C12.0098 6.16753 12.6895 6.84723 12.6895 7.68568V10.8169C12.6895 11.6553 12.0098 12.335 11.1713 12.335H8.27728C7.4388 12.335 6.75909 11.6553 6.75909 10.8169V7.68568Z" fill="#262626"/>
+                <path d="M13.9997 0C16.7488 0 18.9774 2.22852 18.9774 4.97754V10.5071C18.9774 10.6381 18.8712 10.7443 18.7402 10.7443H16.0106C15.8796 10.7443 15.7734 10.6381 15.7734 10.5071L15.6531 5.8841C15.6531 4.33778 14.6128 3.08423 13.0664 3.08423H6.06655C4.52021 3.08427 3.32104 4.3378 3.32104 5.8841V12.9372C3.32105 14.4835 4.52021 15.6559 6.06655 15.6559H11.3446C11.4756 15.6559 11.5818 15.7621 11.5818 15.8931V18.2652C11.5818 18.3963 11.4756 18.5025 11.3446 18.5025H4.97768C2.22858 18.5025 0 16.5928 0 13.8438V4.97754C1.90422e-07 2.22852 2.22858 0 4.97768 0H13.9997Z" fill="#262626"/>
+                <path d="M14.0742 14.6653C14.0742 14.0102 14.6052 13.3954 15.2603 13.3954H17.3673C18.0224 13.3954 18.6232 14.0102 18.6232 14.6653V16.842C18.6232 17.497 18.0224 18.0419 17.3673 18.0419H15.2603C14.6052 18.0419 14.0742 17.497 14.0742 16.842V14.6653Z" fill="#262626"/>
+            </svg>
+        </a>
+        <div class="nav-links">
+            <a href="#">Products <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
+            <a href="#">Solutions <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
+            <a href="#">Customers</a>
+            <a href="#">Resources <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></a>
+            <a href="#">Pricing</a>
+        </div>
     </div>
-    <a href="#" class="nav-btn">Get demo</a>
+    <div class="nav-right">
+        <div class="nav-right-links">
+            <a href="#">Sales</a>
+            <a href="#">Support</a>
+            <a href="#">Log in</a>
+        </div>
+        <a href="#" class="nav-btn">Get demo</a>
+    </div>
 </nav>
 
 <!-- Hero Section -->
 <section class="hero">
-    <div class="hero-container">
+    <div class="hero-grid">
         <div class="hero-content">
-            <div class="hero-avatars">
-                <div class="avatar">J<span class="status"></span></div>
-                <div class="avatar">K<span class="status"></span></div>
-            </div>
             <h1 class="hero-title">Events & Webinars</h1>
             <p class="hero-subtitle">Join the Adaptive Security team at industry-leading conferences and exclusive workshops. See how AI-powered security training is transforming organizations.</p>
             <a href="#events" class="hero-btn">See events</a>
         </div>
 
-        <div class="map-wrapper">
-            <div class="map-label">Upcoming events</div>
-            <div id="map-container">
-                <!-- SVG Map will be rendered here -->
-            </div>
-            <!-- Event Popup -->
-            <div class="event-popup" id="event-popup">
-                <h3 id="popup-title">Black Hat USA</h3>
-                <div class="event-popup-meta">
-                    <span id="popup-date">August 2, 2026</span>
-                    <span>•</span>
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    <span id="popup-location">Las Vegas, NV</span>
+        <div class="map-container">
+            <div class="map-header">
+                <div class="map-header-icons">
+                    <img src="https://i.pravatar.cc/48?img=1" alt="Team member">
+                    <img src="https://i.pravatar.cc/48?img=2" alt="Team member">
                 </div>
-                <a href="#" class="event-popup-link" id="popup-link">
-                    Register <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </a>
+                <span class="map-header-label">Upcoming events</span>
+            </div>
+            <div class="map-wrapper">
+                <div id="loading">Loading map...</div>
+                <div id="canvas-container"></div>
+
+                <!-- Floating Event Popup -->
+                <div class="event-popup">
+                    <h3>Black Hat USA</h3>
+                    <div class="event-popup-meta">
+                        <span>August 2, 2026</span>
+                        <span class="dot"></span>
+                        <span class="event-popup-location">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            Las Vegas, NV
+                        </span>
+                    </div>
+                    <a href="#" class="event-popup-link">
+                        Register
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="map-hint">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+                    </svg>
+                    Drag to rotate
+                </div>
             </div>
         </div>
     </div>
@@ -755,29 +647,9 @@
 <section class="events-section" id="events">
     <div class="events-header">
         <h2 class="events-title">Upcoming events</h2>
-        <div class="events-controls">
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">All</button>
-                <button class="filter-tab" data-filter="in-person">In-person</button>
-                <button class="filter-tab" data-filter="virtual">Virtual</button>
-            </div>
-            <div class="location-dropdown">
-                <select id="location-filter">
-                    <option value="all">All locations</option>
-                    <option value="San Francisco">San Francisco</option>
-                    <option value="Las Vegas">Las Vegas</option>
-                    <option value="New York">New York</option>
-                    <option value="Austin">Austin</option>
-                    <option value="Seattle">Seattle</option>
-                    <option value="Miami">Miami</option>
-                </select>
-            </div>
-            <div class="search-input">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                <input type="text" placeholder="Search" id="search-input">
-            </div>
+        <div class="events-count">
+            <span class="dot"></span>
+            6 events scheduled
         </div>
     </div>
     <div class="events-grid" id="events-grid">
@@ -785,121 +657,285 @@
     </div>
 </section>
 
-<script>
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
     // --- EVENTS DATA ---
     const EVENTS = [
         {
             lat: 37.7749,
             lon: -122.4194,
             city: "San Francisco",
-            state: "CA",
             name: "RSA Conference 2025",
             date: { month: "APR", day: "28" },
-            fullDate: "April 28, 2025",
             type: "conference",
-            format: "in-person"
+            fullDate: "Apr 28 - May 1"
         },
         {
             lat: 36.1699,
             lon: -115.1398,
             city: "Las Vegas",
-            state: "NV",
             name: "Black Hat USA",
             date: { month: "AUG", day: "02" },
-            fullDate: "August 2, 2026",
             type: "conference",
-            format: "in-person"
+            fullDate: "Aug 2-7"
         },
         {
             lat: 40.7128,
             lon: -74.0060,
             city: "New York",
-            state: "NY",
             name: "AI Security Summit",
             date: { month: "MAR", day: "15" },
-            fullDate: "March 15, 2025",
             type: "meetup",
-            format: "in-person"
+            fullDate: "Mar 15"
         },
         {
             lat: 30.2672,
             lon: -97.7431,
             city: "Austin",
-            state: "TX",
             name: "SXSW Cyber Track",
             date: { month: "MAR", day: "08" },
-            fullDate: "March 8, 2025",
             type: "conference",
-            format: "in-person"
+            fullDate: "Mar 8-12"
         },
         {
             lat: 47.6062,
             lon: -122.3321,
             city: "Seattle",
-            state: "WA",
             name: "Enterprise Security Workshop",
             date: { month: "MAY", day: "20" },
-            fullDate: "May 20, 2025",
             type: "meetup",
-            format: "in-person"
+            fullDate: "May 20"
         },
         {
             lat: 25.7617,
             lon: -80.1918,
             city: "Miami",
-            state: "FL",
             name: "FinTech Security Forum",
             date: { month: "JUN", day: "10" },
-            fullDate: "June 10, 2025",
             type: "webinar",
-            format: "virtual"
+            fullDate: "Jun 10-11"
         }
     ];
 
-    // --- MAP CONFIGURATION ---
-    const MAP_CONFIG = {
-        width: 800,
-        height: 500,
-        // US bounds (mainland)
-        bounds: {
-            minLon: -125,
-            maxLon: -66,
-            minLat: 24,
-            maxLat: 50
-        }
+    // --- CONFIGURATION ---
+    const CONFIG = {
+        colorBg: 0x262626,
+        colorLine: 0xEA580C,
+        colorLineSecondary: 0xF97316,
+        colorMarker: 0xffffff,
+        colorMarkerGlow: 0xEA580C,
+        colorGrid: 0x3d3d3d,
+        markerSize: 0.4,
+        pulseSpeed: 1.5
     };
 
-    // Convert lat/lon to SVG coordinates
-    function projectCoords(lat, lon) {
-        const { width, height, bounds } = MAP_CONFIG;
-        const x = ((lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * width;
-        const y = ((bounds.maxLat - lat) / (bounds.maxLat - bounds.minLat)) * height;
-        return { x, y };
+    // --- SCENE SETUP ---
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(CONFIG.colorBg);
+    scene.fog = new THREE.FogExp2(CONFIG.colorBg, 0.015);
+
+    const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 55, 15);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // CSS2D Renderer for labels
+    const labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize(container.clientWidth, container.clientHeight);
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0';
+    labelRenderer.domElement.style.left = '0';
+    labelRenderer.domElement.style.pointerEvents = 'none';
+    container.appendChild(labelRenderer.domElement);
+
+    // --- CONTROLS ---
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 20;
+    controls.maxDistance = 50;
+    controls.minPolarAngle = Math.PI / 12;  // Almost top-down minimum
+    controls.maxPolarAngle = Math.PI / 4;   // More flat maximum
+    controls.autoRotate = false;
+    controls.enablePan = false;
+
+    // --- HELPER: PROJECTION ---
+    function translateCoords(lat, lon) {
+        const x = (lon + 96) * 0.8;
+        const z = (lat - 37) * -1.0;
+        return new THREE.Vector3(x, 0, z);
     }
 
-    // --- CREATE MAP ---
-    async function createMap() {
-        const container = document.getElementById('map-container');
+    // --- GRID FLOOR ---
+    function createGrid() {
+        const gridGroup = new THREE.Group();
+        const gridSize = 80;
+        const divisions = 40;
+        const step = gridSize / divisions;
 
-        // Fetch US GeoJSON
+        const gridMaterial = new THREE.LineBasicMaterial({
+            color: CONFIG.colorGrid,
+            transparent: true,
+            opacity: 0.15
+        });
+
+        for (let i = -gridSize/2; i <= gridSize/2; i += step) {
+            const points1 = [
+                new THREE.Vector3(i, -0.5, -gridSize/2),
+                new THREE.Vector3(i, -0.5, gridSize/2)
+            ];
+            const points2 = [
+                new THREE.Vector3(-gridSize/2, -0.5, i),
+                new THREE.Vector3(gridSize/2, -0.5, i)
+            ];
+
+            const geo1 = new THREE.BufferGeometry().setFromPoints(points1);
+            const geo2 = new THREE.BufferGeometry().setFromPoints(points2);
+
+            gridGroup.add(new THREE.Line(geo1, gridMaterial));
+            gridGroup.add(new THREE.Line(geo2, gridMaterial));
+        }
+
+        return gridGroup;
+    }
+
+    // --- CONNECTION LINES (data flow between cities) ---
+    const connectionParticles = [];
+
+    function createConnections(mapGroup) {
+        const connectionGroup = new THREE.Group();
+
+        // Create connections between cities (hub and spoke from Austin)
+        const connections = [
+            [3, 0], // Austin -> San Francisco
+            [3, 1], // Austin -> Las Vegas
+            [3, 2], // Austin -> New York
+            [3, 4], // Austin -> Seattle
+            [3, 5], // Austin -> Miami
+            [0, 4], // San Francisco -> Seattle
+            [2, 5], // New York -> Miami
+        ];
+
+        connections.forEach(([fromIdx, toIdx]) => {
+            const from = EVENTS[fromIdx];
+            const to = EVENTS[toIdx];
+
+            const startPos = translateCoords(from.lat, from.lon);
+            const endPos = translateCoords(to.lat, to.lon);
+
+            // Create curved path
+            const midPoint = new THREE.Vector3(
+                (startPos.x + endPos.x) / 2,
+                2.5, // Arc height
+                (startPos.z + endPos.z) / 2
+            );
+
+            const curve = new THREE.QuadraticBezierCurve3(
+                new THREE.Vector3(startPos.x, 0.2, startPos.z),
+                midPoint,
+                new THREE.Vector3(endPos.x, 0.2, endPos.z)
+            );
+
+            // Connection line (subtle)
+            const points = curve.getPoints(50);
+            const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+            const lineMat = new THREE.LineBasicMaterial({
+                color: CONFIG.colorLine,
+                transparent: true,
+                opacity: 0.15
+            });
+            const line = new THREE.Line(lineGeo, lineMat);
+            connectionGroup.add(line);
+
+            // Traveling particle
+            const particleGeo = new THREE.SphereGeometry(0.12, 8, 8);
+            const particleMat = new THREE.MeshBasicMaterial({
+                color: CONFIG.colorMarkerGlow,
+                transparent: true,
+                opacity: 0.9
+            });
+            const particle = new THREE.Mesh(particleGeo, particleMat);
+
+            // Particle glow
+            const glowGeo = new THREE.SphereGeometry(0.25, 8, 8);
+            const glowMat = new THREE.MeshBasicMaterial({
+                color: CONFIG.colorMarkerGlow,
+                transparent: true,
+                opacity: 0.3
+            });
+            const glow = new THREE.Mesh(glowGeo, glowMat);
+            particle.add(glow);
+
+            connectionGroup.add(particle);
+
+            connectionParticles.push({
+                particle,
+                curve,
+                speed: 0.15 + Math.random() * 0.1,
+                offset: Math.random()
+            });
+        });
+
+        return connectionGroup;
+    }
+
+    // --- MAP GENERATION ---
+    async function loadMap() {
         const response = await fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA.geo.json');
         const data = await response.json();
 
-        // Create SVG
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('id', 'map-svg');
-        svg.setAttribute('viewBox', `0 0 ${MAP_CONFIG.width} ${MAP_CONFIG.height}`);
-        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-
-        // Create map paths
-        const pathGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        pathGroup.setAttribute('class', 'map-paths');
+        const mapGroup = new THREE.Group();
 
         function isMainlandUS(coord) {
             const lon = coord[0];
             const lat = coord[1];
             return lon > -130 && lon < -60 && lat > 23 && lat < 50;
         }
+
+        // Filled region material (subtle)
+        const fillMaterial = new THREE.MeshBasicMaterial({
+            color: 0x3d3d3d,
+            transparent: true,
+            opacity: 0.4,
+            side: THREE.DoubleSide
+        });
+
+        // Main outline material (bright)
+        const lineMaterial = new THREE.LineBasicMaterial({
+            color: CONFIG.colorLine,
+            transparent: true,
+            opacity: 1.0
+        });
+
+        // Outer glow line
+        const glowMaterial = new THREE.LineBasicMaterial({
+            color: CONFIG.colorLineSecondary,
+            transparent: true,
+            opacity: 0.5
+        });
+
+        // Inner subtle line
+        const innerMaterial = new THREE.LineBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.15
+        });
 
         data.features.forEach(feature => {
             const geometryTypes = feature.geometry.type === 'MultiPolygon'
@@ -911,141 +947,119 @@
                     const firstCoord = ring[0];
                     if (!isMainlandUS(firstCoord)) return;
 
-                    let pathD = '';
+                    const points = [];
+                    const shape = new THREE.Shape();
+
                     ring.forEach((coord, idx) => {
-                        const { x, y } = projectCoords(coord[1], coord[0]);
-                        pathD += idx === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`;
+                        const pos = translateCoords(coord[1], coord[0]);
+                        points.push(pos);
+                        if (idx === 0) {
+                            shape.moveTo(pos.x, -pos.z);
+                        } else {
+                            shape.lineTo(pos.x, -pos.z);
+                        }
                     });
-                    pathD += ' Z';
 
                     // Filled shape
-                    const fillPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    fillPath.setAttribute('d', pathD);
-                    fillPath.setAttribute('fill', '#2a2a2a');
-                    fillPath.setAttribute('stroke', '#3d3d3d');
-                    fillPath.setAttribute('stroke-width', '1');
-                    pathGroup.appendChild(fillPath);
+                    try {
+                        const shapeGeo = new THREE.ShapeGeometry(shape);
+                        const shapeMesh = new THREE.Mesh(shapeGeo, fillMaterial);
+                        shapeMesh.rotation.x = -Math.PI / 2;
+                        shapeMesh.position.y = -0.1;
+                        mapGroup.add(shapeMesh);
+                    } catch (e) {
+                        // Skip invalid shapes
+                    }
+
+                    // Main bright outline
+                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(geometry, lineMaterial);
+                    mapGroup.add(line);
+
+                    // Outer glow layer
+                    const glowPoints = points.map(p => new THREE.Vector3(p.x, p.y + 0.03, p.z));
+                    const glowGeo = new THREE.BufferGeometry().setFromPoints(glowPoints);
+                    const glowLine = new THREE.Line(glowGeo, glowMaterial);
+                    mapGroup.add(glowLine);
+
+                    // Inner highlight
+                    const innerPoints = points.map(p => new THREE.Vector3(p.x * 0.995, p.y + 0.01, p.z * 0.995));
+                    const innerGeo = new THREE.BufferGeometry().setFromPoints(innerPoints);
+                    const innerLine = new THREE.Line(innerGeo, innerMaterial);
+                    mapGroup.add(innerLine);
                 });
             });
         });
 
-        svg.appendChild(pathGroup);
+        const box = new THREE.Box3().setFromObject(mapGroup);
+        const center = box.getCenter(new THREE.Vector3());
+        mapGroup.position.sub(center);
 
-        // Create markers group
-        const markersGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        markersGroup.setAttribute('class', 'markers-group');
-
-        EVENTS.forEach((event, index) => {
-            const { x, y } = projectCoords(event.lat, event.lon);
-
-            // Marker group
-            const markerGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            markerGroup.setAttribute('class', 'city-marker');
-            markerGroup.setAttribute('data-index', index);
-            markerGroup.setAttribute('transform', `translate(${x}, ${y})`);
-
-            // Pulse ring (animated)
-            const pulseRing = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            pulseRing.setAttribute('class', 'outer');
-            pulseRing.setAttribute('cx', '0');
-            pulseRing.setAttribute('cy', '0');
-            pulseRing.setAttribute('r', '12');
-            markerGroup.appendChild(pulseRing);
-
-            // Inner dot
-            const innerDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            innerDot.setAttribute('class', 'inner');
-            innerDot.setAttribute('cx', '0');
-            innerDot.setAttribute('cy', '0');
-            innerDot.setAttribute('r', '6');
-            markerGroup.appendChild(innerDot);
-
-            // Event listeners
-            markerGroup.addEventListener('mouseenter', () => showEventPopup(index, x, y));
-            markerGroup.addEventListener('mouseleave', hideEventPopup);
-            markerGroup.addEventListener('click', () => scrollToEvent(index));
-
-            markersGroup.appendChild(markerGroup);
-        });
-
-        svg.appendChild(markersGroup);
-        container.appendChild(svg);
-
-        // Create city labels as HTML overlays
-        createCityLabels();
+        return mapGroup;
     }
 
-    function createCityLabels() {
-        const container = document.getElementById('map-container');
-        const svgRect = document.getElementById('map-svg')?.getBoundingClientRect();
+    // --- MARKERS ---
+    const markers = [];
 
-        EVENTS.forEach((event, index) => {
-            const { x, y } = projectCoords(event.lat, event.lon);
+    function createEventMarker(event, index) {
+        const pos = translateCoords(event.lat, event.lon);
+        const group = new THREE.Group();
 
-            const label = document.createElement('div');
-            label.className = 'city-label';
-            label.textContent = event.city;
-            label.dataset.index = index;
+        // Core
+        const coreGeo = new THREE.SphereGeometry(CONFIG.markerSize * 0.5, 16, 16);
+        const coreMat = new THREE.MeshBasicMaterial({ color: CONFIG.colorMarker });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        core.position.y = 0.3;
+        group.add(core);
 
-            // Position will be updated on resize
-            label.style.left = `${(x / MAP_CONFIG.width) * 100}%`;
-            label.style.top = `${(y / MAP_CONFIG.height) * 100}%`;
-
-            container.appendChild(label);
+        // Glow
+        const glowGeo = new THREE.SphereGeometry(CONFIG.markerSize * 0.7, 16, 16);
+        const glowMat = new THREE.MeshBasicMaterial({
+            color: CONFIG.colorMarkerGlow,
+            transparent: true,
+            opacity: 0.4
         });
-    }
+        const glow = new THREE.Mesh(glowGeo, glowMat);
+        glow.position.y = 0.3;
+        group.add(glow);
 
-    // --- EVENT POPUP ---
-    function showEventPopup(index, mapX, mapY) {
-        const event = EVENTS[index];
-        const popup = document.getElementById('event-popup');
-        const container = document.getElementById('map-container');
-
-        // Update content
-        document.getElementById('popup-title').textContent = event.name;
-        document.getElementById('popup-date').textContent = event.fullDate;
-        document.getElementById('popup-location').textContent = `${event.city}, ${event.state}`;
-
-        // Calculate position
-        const containerRect = container.getBoundingClientRect();
-        const xPercent = mapX / MAP_CONFIG.width;
-        const yPercent = mapY / MAP_CONFIG.height;
-
-        let popupX = xPercent * containerRect.width;
-        let popupY = yPercent * containerRect.height;
-
-        // Offset from marker
-        popupX += 20;
-        popupY -= 60;
-
-        // Keep popup within container
-        const popupWidth = 280;
-        if (popupX + popupWidth > containerRect.width) {
-            popupX = xPercent * containerRect.width - popupWidth - 20;
+        // Pulse rings
+        const rings = [];
+        for (let i = 0; i < 2; i++) {
+            const ringGeo = new THREE.RingGeometry(CONFIG.markerSize * 0.5, CONFIG.markerSize * 0.9, 32);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: CONFIG.colorMarkerGlow,
+                transparent: true,
+                opacity: 0.6,
+                side: THREE.DoubleSide
+            });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = -Math.PI / 2;
+            ring.position.y = 0.05;
+            group.add(ring);
+            rings.push({ mesh: ring, delay: i * 0.5 });
         }
 
-        popup.style.left = `${popupX}px`;
-        popup.style.top = `${popupY}px`;
-        popup.classList.add('visible');
+        // City name label
+        const labelDiv = document.createElement('div');
+        labelDiv.className = 'city-label';
+        labelDiv.textContent = event.city;
+        const label = new CSS2DObject(labelDiv);
+        label.position.set(0, 1.5, 0);
+        group.add(label);
 
-        // Highlight marker
-        document.querySelectorAll('.city-marker').forEach((m, i) => {
-            m.classList.toggle('active', i === index);
+        group.position.copy(pos);
+
+        markers.push({
+            group,
+            rings,
+            glow,
+            label: labelDiv,
+            timeOffset: index * 0.8,
+            event
         });
-    }
 
-    function hideEventPopup() {
-        document.getElementById('event-popup').classList.remove('visible');
-        document.querySelectorAll('.city-marker').forEach(m => m.classList.remove('active'));
-    }
-
-    function scrollToEvent(index) {
-        const card = document.querySelector(`.event-card[data-index="${index}"]`);
-        if (card) {
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            card.classList.add('active');
-            setTimeout(() => card.classList.remove('active'), 2000);
-        }
+        return group;
     }
 
     // --- POPULATE EVENT CARDS ---
@@ -1056,9 +1070,6 @@
             const card = document.createElement('div');
             card.className = 'event-card';
             card.dataset.index = index;
-            card.dataset.format = event.format;
-            card.dataset.city = event.city;
-            card.dataset.name = event.name.toLowerCase();
 
             card.innerHTML = `
                 <div class="event-card-header">
@@ -1073,100 +1084,108 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
-                            ${event.city}, ${event.state}
+                            ${event.city}
                         </div>
                     </div>
                 </div>
                 <span class="event-tag ${event.type}">${event.type}</span>
             `;
 
-            card.addEventListener('mouseenter', () => highlightMapMarker(index, true));
-            card.addEventListener('mouseleave', () => highlightMapMarker(index, false));
+            card.addEventListener('mouseenter', () => highlightMarker(index, true));
+            card.addEventListener('mouseleave', () => highlightMarker(index, false));
+            card.addEventListener('click', () => focusOnEvent(index));
 
             grid.appendChild(card);
         });
     }
 
-    function highlightMapMarker(index, highlight) {
-        const markers = document.querySelectorAll('.city-marker');
-        const labels = document.querySelectorAll('.city-label');
+    function highlightMarker(index, highlight) {
+        const marker = markers[index];
+        if (!marker) return;
 
-        markers.forEach((m, i) => {
-            if (i === index && highlight) {
-                m.classList.add('active');
-                m.style.transform = `translate(${m.getAttribute('transform').match(/translate\(([\d.]+),\s*([\d.]+)\)/)?.[1] || 0}px, ${m.getAttribute('transform').match(/translate\(([\d.]+),\s*([\d.]+)\)/)?.[2] || 0}px) scale(1.3)`;
-            } else if (i === index) {
-                m.classList.remove('active');
-            }
+        marker.group.scale.setScalar(highlight ? 1.6 : 1);
+
+        document.querySelectorAll('.event-card').forEach((card, i) => {
+            card.classList.toggle('active', i === index && highlight);
         });
     }
 
-    // --- FILTERING ---
-    function setupFilters() {
-        // Tab filters
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                filterEvents();
-            });
-        });
+    let mapGroup;
 
-        // Location dropdown
-        document.getElementById('location-filter').addEventListener('change', filterEvents);
-
-        // Search input
-        document.getElementById('search-input').addEventListener('input', filterEvents);
-    }
-
-    function filterEvents() {
-        const activeTab = document.querySelector('.filter-tab.active').dataset.filter;
-        const locationFilter = document.getElementById('location-filter').value;
-        const searchQuery = document.getElementById('search-input').value.toLowerCase();
-
-        document.querySelectorAll('.event-card').forEach(card => {
-            const format = card.dataset.format;
-            const city = card.dataset.city;
-            const name = card.dataset.name;
-
-            let visible = true;
-
-            // Format filter
-            if (activeTab === 'in-person' && format !== 'in-person') visible = false;
-            if (activeTab === 'virtual' && format !== 'virtual') visible = false;
-
-            // Location filter
-            if (locationFilter !== 'all' && city !== locationFilter) visible = false;
-
-            // Search filter
-            if (searchQuery && !name.includes(searchQuery) && !city.toLowerCase().includes(searchQuery)) {
-                visible = false;
-            }
-
-            card.style.display = visible ? 'block' : 'none';
-        });
+    function focusOnEvent(index) {
+        const event = EVENTS[index];
+        const pos = translateCoords(event.lat, event.lon);
+        controls.target.set(pos.x - mapGroup.position.x, 0, pos.z - mapGroup.position.z);
     }
 
     // --- INIT ---
     async function init() {
-        await createMap();
+        const grid = createGrid();
+        scene.add(grid);
+
+        mapGroup = await loadMap();
+        scene.add(mapGroup);
+
+        // Add connection lines between cities
+        const connections = createConnections(mapGroup);
+        mapGroup.add(connections);
+
+        EVENTS.forEach((event, index) => {
+            const marker = createEventMarker(event, index);
+            mapGroup.add(marker);
+        });
+
         populateEventCards();
-        setupFilters();
+
+        document.getElementById('loading').style.display = 'none';
     }
 
     init();
 
-    // --- RESIZE HANDLER ---
-    window.addEventListener('resize', () => {
-        // Update label positions on resize
-        const labels = document.querySelectorAll('.city-label');
-        labels.forEach(label => {
-            const index = parseInt(label.dataset.index);
-            const event = EVENTS[index];
-            const { x, y } = projectCoords(event.lat, event.lon);
-            label.style.left = `${(x / MAP_CONFIG.width) * 100}%`;
-            label.style.top = `${(y / MAP_CONFIG.height) * 100}%`;
+    // --- ANIMATION ---
+    const clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        const time = clock.getElapsedTime();
+
+        // Animate markers
+        markers.forEach(marker => {
+            marker.rings.forEach(ringData => {
+                const pulse = ((time * CONFIG.pulseSpeed + marker.timeOffset + ringData.delay) % 2) / 2;
+                const scale = 1 + (pulse * 2.5);
+                ringData.mesh.scale.set(scale, scale, 1);
+                ringData.mesh.material.opacity = 0.6 * (1 - pulse);
+            });
+
+            marker.glow.material.opacity = 0.4 + Math.sin(time * 3 + marker.timeOffset) * 0.15;
         });
+
+        // Animate connection particles (data flow effect)
+        connectionParticles.forEach(cp => {
+            const t = ((time * cp.speed + cp.offset) % 1);
+            const pos = cp.curve.getPoint(t);
+            cp.particle.position.copy(pos);
+
+            // Pulse the particle
+            const pulse = Math.sin(time * 8) * 0.3 + 1;
+            cp.particle.scale.setScalar(pulse);
+        });
+
+        controls.update();
+        renderer.render(scene, camera);
+        labelRenderer.render(scene, camera);
+    }
+
+    animate();
+
+    // --- RESIZE ---
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        labelRenderer.setSize(container.clientWidth, container.clientHeight);
     });
 </script>
 </body>

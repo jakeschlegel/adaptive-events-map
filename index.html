@@ -8,6 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'FK Grotesk';
+            src: url('https://assets.adaptive.security/fonts/FKGrotesk-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -148,11 +156,13 @@
         }
 
         .hero-title {
+            font-family: 'FK Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 56px;
             font-weight: 400;
             line-height: 1.2;
             color: white;
             letter-spacing: -1.12px;
+            font-feature-settings: 'liga' 0;
         }
 
         .hero-subtitle {
@@ -182,51 +192,63 @@
             background: #f5f5f5;
         }
 
-        /* Map Container */
+        /* Map Container - Figma exact dimensions */
         .map-container {
             position: relative;
+            width: 698px;
             height: 478px;
         }
 
         .map-header-label {
             position: absolute;
-            top: 0;
-            right: 0;
+            top: 1px;
+            left: 291px;
             font-size: 14px;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.6);
+            color: white;
+            opacity: 0.6;
             z-index: 5;
         }
 
         .map-wrapper {
             position: relative;
+            width: 100%;
             height: 100%;
             overflow: visible;
         }
 
-        #canvas-container {
+        /* Static Map Image */
+        .map-image {
+            position: absolute;
+            inset: 0.75% 0.42% 1.89% 0.57%;
+            width: calc(100% - 0.99%);
+            height: calc(100% - 2.64%);
+        }
+
+        .map-image svg {
             width: 100%;
             height: 100%;
         }
 
-        /* City Markers */
+        /* City Markers - Absolute positioned per Figma */
         .city-marker {
+            position: absolute;
             display: flex;
             align-items: center;
             gap: 8px;
             pointer-events: auto;
             cursor: pointer;
-            position: relative;
+            transform: translate(-50%, -50%);
         }
 
-        .city-marker.right {
+        .city-marker.dot-right {
             flex-direction: row-reverse;
         }
 
         .city-marker .marker-dot {
             width: 12px;
             height: 12px;
-            border-radius: 50%;
+            border-radius: 999px;
             background: #262626;
             border: 1px solid #f83;
             display: flex;
@@ -234,15 +256,14 @@
             justify-content: center;
             flex-shrink: 0;
             transition: all 0.2s ease;
-            position: relative;
         }
 
         .city-marker .marker-dot::before {
             content: '';
             width: 3px;
             height: 3px;
-            border-radius: 50%;
-            background: linear-gradient(111deg, #f83 17%, #fff5ea 249%);
+            border-radius: 0.6px;
+            background: linear-gradient(111deg, rgba(255, 136, 51, 1) 16.85%, rgba(255, 245, 234, 1) 248.57%);
             transition: all 0.2s ease;
         }
 
@@ -250,11 +271,16 @@
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             font-weight: 500;
+            line-height: 1.5;
             white-space: nowrap;
             color: #311602;
             padding: 4px 8px;
+            height: 25px;
             border-radius: 6px;
-            background: linear-gradient(135deg, #f83 17%, #fff5ea 249%);
+            background: linear-gradient(135deg, rgba(255, 136, 51, 1) 16.85%, rgba(255, 245, 234, 1) 248.57%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
@@ -266,7 +292,7 @@
         }
 
         .city-marker:hover .marker-dot {
-            background: linear-gradient(111deg, #f83 17%, #fff5ea 249%);
+            background: linear-gradient(111deg, rgba(255, 136, 51, 1) 16.85%, rgba(255, 245, 234, 1) 248.57%);
             border-color: #311602;
             box-shadow: 0 0 0 3px rgba(255, 141, 61, 0.16);
         }
@@ -275,28 +301,21 @@
             background: #311602;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(255, 136, 51, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 0 6px rgba(255, 136, 51, 0.1);
-            }
-        }
-
-        /* Floating Event Popup Card */
+        /* Floating Event Popup Card - Figma exact specs */
         .event-popup {
             position: absolute;
-            top: 45%;
-            left: 30%;
-            transform: translate(-50%, 0);
             background: #171717;
             border: 1px solid #f83;
             border-radius: 12px;
             padding: 24px;
-            width: 280px;
+            width: 304px;
             z-index: 10;
-            box-shadow: 0 4px 9px rgba(0,0,0,0.05), 0 16px 16px rgba(0,0,0,0.04), 0 35px 21px rgba(0,0,0,0.03);
+            box-shadow:
+                0px 4px 9px 0px rgba(0,0,0,0.05),
+                0px 16px 16px 0px rgba(0,0,0,0.04),
+                0px 35px 21px 0px rgba(0,0,0,0.03),
+                0px 63px 25px 0px rgba(0,0,0,0.01),
+                0px 98px 28px 0px rgba(0,0,0,0);
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.15s ease, visibility 0.15s ease;
@@ -309,40 +328,44 @@
         }
 
         .event-popup h3 {
-            font-size: 18px;
+            font-family: 'FK Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 20px;
             font-weight: 400;
+            line-height: 1.4;
             color: white;
             margin-bottom: 8px;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.4px;
+            font-feature-settings: 'liga' 0;
         }
 
         .event-popup-meta {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 12px;
-            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
         }
 
         .event-popup-meta .dot {
-            width: 3px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.5);
+            width: 4px;
+            height: 4px;
+            background: white;
             border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .event-popup-location {
             display: inline-flex;
             align-items: center;
             gap: 4px;
+            flex: 1;
         }
 
         .event-popup-location svg {
-            width: 14px;
-            height: 14px;
-            stroke: rgba(255, 255, 255, 0.7);
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
         }
 
         .event-popup-link {
@@ -356,9 +379,8 @@
         }
 
         .event-popup-link svg {
-            width: 10px;
-            height: 10px;
-            stroke: white;
+            width: 12px;
+            height: 12px;
         }
 
         .event-popup-link:hover {
@@ -639,17 +661,65 @@
         <div class="map-container">
             <span class="map-header-label">Upcoming events</span>
             <div class="map-wrapper">
-                <div id="loading">Loading map...</div>
-                <div id="canvas-container"></div>
+                <!-- Static USA Map - Figma asset with fallback -->
+                <div class="map-image">
+                    <img
+                        src="https://www.figma.com/api/mcp/asset/2a17d1fd-ac40-4d7b-b226-be7307fb1220"
+                        alt="USA Map"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                    />
+                    <!-- Fallback SVG if Figma asset expires -->
+                    <svg viewBox="0 0 959 593" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none; width: 100%; height: 100%;">
+                        <rect width="959" height="593" fill="#262626"/>
+                        <text x="480" y="296" text-anchor="middle" fill="#4a4a4a" font-size="24">USA Map</text>
+                    </svg>
+                </div>
 
-                <!-- Floating Event Popup -->
+                <!-- City Markers - Positioned exactly per Figma -->
+                <!-- Seattle: calc(50% - 253px), calc(50% - 178.5px) -->
+                <div class="city-marker" id="marker-seattle" style="left: calc(50% - 253px); top: calc(50% - 178.5px);" data-event="4">
+                    <div class="marker-dot"></div>
+                    <div class="city-name">Seattle</div>
+                </div>
+
+                <!-- San Francisco: calc(50% - 267.31px), calc(50% - 39.12px) -->
+                <div class="city-marker" id="marker-sf" style="left: calc(50% - 267.31px); top: calc(50% - 39.12px);" data-event="0">
+                    <div class="marker-dot"></div>
+                    <div class="city-name">San Francisco</div>
+                </div>
+
+                <!-- Las Vegas: calc(50% - 80px), calc(50% + 79px) - This is the hovered state in Figma -->
+                <div class="city-marker" id="marker-vegas" style="left: calc(50% - 80px); top: calc(50% + 79px);" data-event="1">
+                    <div class="marker-dot"></div>
+                    <div class="city-name">Las Vegas</div>
+                </div>
+
+                <!-- Austin: calc(50% + 37.69px), calc(50% + 153.88px) -->
+                <div class="city-marker" id="marker-austin" style="left: calc(50% + 37.69px); top: calc(50% + 153.88px);" data-event="3">
+                    <div class="marker-dot"></div>
+                    <div class="city-name">Austin</div>
+                </div>
+
+                <!-- New York: calc(50% + 241.19px), calc(50% - 84.12px) - dot on RIGHT -->
+                <div class="city-marker dot-right" id="marker-ny" style="left: calc(50% + 241.19px); top: calc(50% - 84.12px);" data-event="2">
+                    <div class="marker-dot"></div>
+                    <div class="city-name">New York</div>
+                </div>
+
+                <!-- Miami: calc(50% + 287.19px), calc(50% + 178.88px) -->
+                <div class="city-marker" id="marker-miami" style="left: calc(50% + 287.19px); top: calc(50% + 178.88px);" data-event="5">
+                    <div class="marker-dot"></div>
+                    <div class="city-name">Miami</div>
+                </div>
+
+                <!-- Floating Event Popup - positioned via JS -->
                 <div class="event-popup" id="event-popup">
                     <h3 id="popup-title">Black Hat USA</h3>
                     <div class="event-popup-meta">
                         <span id="popup-date">August 2, 2026</span>
                         <span class="dot"></span>
                         <span class="event-popup-location">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.8)">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
@@ -658,7 +728,7 @@
                     </div>
                     <a href="#" class="event-popup-link">
                         Register
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="white">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </a>
@@ -682,71 +752,58 @@
     </div>
 </section>
 
-<script type="importmap">
-{
-    "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-    }
-}
-</script>
-
-<script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-
+<script>
     // --- EVENTS DATA ---
     const EVENTS = [
         {
-            lat: 37.7749,
-            lon: -122.4194,
+            id: 0,
             city: "San Francisco",
+            state: "CA",
             name: "RSA Conference 2025",
             date: { month: "APR", day: "28" },
             type: "conference",
             fullDate: "Apr 28 - May 1"
         },
         {
-            lat: 36.1699,
-            lon: -115.1398,
+            id: 1,
             city: "Las Vegas",
+            state: "NV",
             name: "Black Hat USA",
             date: { month: "AUG", day: "02" },
             type: "conference",
-            fullDate: "Aug 2-7"
+            fullDate: "August 2, 2026"
         },
         {
-            lat: 40.7128,
-            lon: -74.0060,
+            id: 2,
             city: "New York",
+            state: "NY",
             name: "AI Security Summit",
             date: { month: "MAR", day: "15" },
             type: "meetup",
             fullDate: "Mar 15"
         },
         {
-            lat: 30.2672,
-            lon: -97.7431,
+            id: 3,
             city: "Austin",
+            state: "TX",
             name: "SXSW Cyber Track",
             date: { month: "MAR", day: "08" },
             type: "conference",
             fullDate: "Mar 8-12"
         },
         {
-            lat: 47.6062,
-            lon: -122.3321,
+            id: 4,
             city: "Seattle",
+            state: "WA",
             name: "Enterprise Security Workshop",
             date: { month: "MAY", day: "20" },
             type: "meetup",
             fullDate: "May 20"
         },
         {
-            lat: 25.7617,
-            lon: -80.1918,
+            id: 5,
             city: "Miami",
+            state: "FL",
             name: "FinTech Security Forum",
             date: { month: "JUN", day: "10" },
             type: "webinar",
@@ -754,191 +811,48 @@
         }
     ];
 
-    // --- CONFIGURATION ---
-    const CONFIG = {
-        colorBg: 0x262626,
-        colorLine: 0x4a4a4a,
-        colorLineSecondary: 0x3d3d3d,
-        colorMarker: 0xffffff,
-        colorMarkerGlow: 0xEA580C,
-        colorGrid: 0x333333,
-        markerSize: 0.3,
-        pulseSpeed: 1.5
-    };
-
-    // --- SCENE SETUP ---
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(CONFIG.colorBg);
-    scene.fog = new THREE.FogExp2(CONFIG.colorBg, 0.005);
-
-    const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 38, 8);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    // CSS2D Renderer for labels
-    const labelRenderer = new CSS2DRenderer();
-    labelRenderer.setSize(container.clientWidth, container.clientHeight);
-    labelRenderer.domElement.style.position = 'absolute';
-    labelRenderer.domElement.style.top = '0';
-    labelRenderer.domElement.style.left = '0';
-    labelRenderer.domElement.style.pointerEvents = 'none';
-    container.appendChild(labelRenderer.domElement);
-
-    // --- CONTROLS ---
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.minDistance = 25;
-    controls.maxDistance = 60;
-    controls.minPolarAngle = Math.PI / 16;
-    controls.maxPolarAngle = Math.PI / 6;
-    controls.autoRotate = false;
-    controls.enablePan = false;
-    controls.enableRotate = false;
-    controls.enableZoom = true;
-    controls.zoomSpeed = 0.8;
-
-    // --- HELPER: PROJECTION ---
-    function translateCoords(lat, lon) {
-        const x = (lon + 96) * 0.8;
-        const z = (lat - 37) * -1.0;
-        return new THREE.Vector3(x, 0, z);
-    }
-
-    // --- GRID FLOOR (disabled for clean look) ---
-    function createGrid() {
-        return new THREE.Group();
-    }
-
-    // --- CONNECTION LINES (disabled for clean Figma look) ---
-    const connectionParticles = [];
-
-    function createConnections(mapGroup) {
-        return new THREE.Group();
-    }
-
-    // --- MAP GENERATION ---
-    // States that have events (should be highlighted lighter)
-    const ACTIVE_STATES = ['Washington', 'California', 'Nevada', 'Texas', 'Florida', 'New York'];
-
-    async function loadMap() {
-        // Use US states GeoJSON for individual state boundaries
-        const response = await fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json');
-        const data = await response.json();
-
-        const mapGroup = new THREE.Group();
-
-        function isMainlandUS(coord) {
-            const lon = coord[0];
-            const lat = coord[1];
-            return lon > -130 && lon < -60 && lat > 23 && lat < 50;
-        }
-
-        // State border material
-        const borderMaterial = new THREE.LineBasicMaterial({
-            color: 0x4a4a4a,
-            transparent: true,
-            opacity: 0.8
-        });
-
-        data.features.forEach(feature => {
-            const stateName = feature.properties.name;
-            const isActiveState = ACTIVE_STATES.includes(stateName);
-
-            // Different fill colors for active vs inactive states
-            const fillMaterial = new THREE.MeshBasicMaterial({
-                color: isActiveState ? 0x454545 : 0x363636,
-                transparent: true,
-                opacity: 1,
-                side: THREE.DoubleSide
-            });
-
-            const geometryTypes = feature.geometry.type === 'MultiPolygon'
-                ? feature.geometry.coordinates
-                : [feature.geometry.coordinates];
-
-            geometryTypes.forEach(polygon => {
-                polygon.forEach(ring => {
-                    const firstCoord = ring[0];
-                    if (!isMainlandUS(firstCoord)) return;
-
-                    const points = [];
-                    const shape = new THREE.Shape();
-
-                    ring.forEach((coord, idx) => {
-                        const pos = translateCoords(coord[1], coord[0]);
-                        points.push(pos);
-                        if (idx === 0) {
-                            shape.moveTo(pos.x, -pos.z);
-                        } else {
-                            shape.lineTo(pos.x, -pos.z);
-                        }
-                    });
-
-                    // Filled shape
-                    try {
-                        const shapeGeo = new THREE.ShapeGeometry(shape);
-                        const shapeMesh = new THREE.Mesh(shapeGeo, fillMaterial);
-                        shapeMesh.rotation.x = -Math.PI / 2;
-                        shapeMesh.position.y = -0.1;
-                        mapGroup.add(shapeMesh);
-                    } catch (e) {
-                        // Skip invalid shapes
-                    }
-
-                    // State border line
-                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                    const line = new THREE.Line(geometry, borderMaterial);
-                    mapGroup.add(line);
-                });
-            });
-        });
-
-        const box = new THREE.Box3().setFromObject(mapGroup);
-        const center = box.getCenter(new THREE.Vector3());
-        mapGroup.position.sub(center);
-
-        return mapGroup;
-    }
-
-    // --- MARKERS ---
-    const markers = [];
-
-    // Popup elements
+    // --- DOM ELEMENTS ---
     const popup = document.getElementById('event-popup');
     const popupTitle = document.getElementById('popup-title');
     const popupDate = document.getElementById('popup-date');
     const popupLocation = document.getElementById('popup-location');
+    const mapWrapper = document.querySelector('.map-wrapper');
 
-    function showPopup(event, labelElement) {
+    // --- POPUP FUNCTIONS ---
+    function showPopup(eventId, markerElement) {
+        const event = EVENTS.find(e => e.id === eventId);
+        if (!event) return;
+
         // Update popup content
         popupTitle.textContent = event.name;
         popupDate.textContent = event.fullDate;
-        popupLocation.textContent = `${event.city}`;
+        popupLocation.textContent = `${event.city}, ${event.state}`;
 
-        // Get marker dot position relative to map container
-        const dotElement = labelElement.querySelector('.marker-dot');
-        const rect = dotElement ? dotElement.getBoundingClientRect() : labelElement.getBoundingClientRect();
-        const containerRect = document.querySelector('.map-wrapper').getBoundingClientRect();
+        // Get marker dot position
+        const dotElement = markerElement.querySelector('.marker-dot');
+        const dotRect = dotElement.getBoundingClientRect();
+        const wrapperRect = mapWrapper.getBoundingClientRect();
 
-        // Position popup below the dot
-        const popupWidth = 280; // matches CSS width
-        let popupLeft = rect.left - containerRect.left + (rect.width / 2) - (popupWidth / 2);
-        const popupTop = rect.bottom - containerRect.top + 15;
+        // Position popup to the right of the dot (like in Figma)
+        const popupWidth = 304;
+        const gap = 8; // gap between dot and popup
 
-        // Keep popup within container bounds
-        popupLeft = Math.max(10, Math.min(popupLeft, containerRect.width - popupWidth - 10));
+        // Calculate position - popup appears to the right of the dot
+        let popupLeft = dotRect.right - wrapperRect.left + gap;
+        let popupTop = dotRect.top - wrapperRect.top - 5; // slightly above dot center
+
+        // If popup would overflow right edge, position it to the left
+        if (popupLeft + popupWidth > wrapperRect.width) {
+            popupLeft = dotRect.left - wrapperRect.left - popupWidth - gap;
+        }
+
+        // Keep popup within vertical bounds
+        popupTop = Math.max(10, Math.min(popupTop, wrapperRect.height - 200));
 
         popup.style.left = `${popupLeft}px`;
         popup.style.top = `${popupTop}px`;
         popup.style.transform = 'none';
 
-        // Show popup
         popup.classList.add('visible');
     }
 
@@ -946,60 +860,27 @@
         popup.classList.remove('visible');
     }
 
-    function createEventMarker(event, index) {
-        const pos = translateCoords(event.lat, event.lon);
-        const group = new THREE.Group();
+    // --- MARKER EVENT LISTENERS ---
+    document.querySelectorAll('.city-marker').forEach(marker => {
+        const eventId = parseInt(marker.dataset.event);
 
-        // Determine if dot should be on the right (for east coast cities)
-        const isRightSide = event.lon > -100; // East of center US
-
-        // Create marker container with dot and name
-        const markerDiv = document.createElement('div');
-        markerDiv.className = `city-marker${isRightSide ? ' right' : ''}`;
-
-        // Create the dot element
-        const dotDiv = document.createElement('div');
-        dotDiv.className = 'marker-dot';
-
-        // Create the city name pill
-        const nameDiv = document.createElement('div');
-        nameDiv.className = 'city-name';
-        nameDiv.textContent = event.city;
-
-        // Add elements to marker
-        markerDiv.appendChild(dotDiv);
-        markerDiv.appendChild(nameDiv);
-
-        // Add hover events for popup
-        markerDiv.addEventListener('mouseenter', () => showPopup(event, markerDiv));
-        markerDiv.addEventListener('mouseleave', hidePopup);
-
-        const label = new CSS2DObject(markerDiv);
-        label.position.set(0, 0.5, 0);
-        group.add(label);
-
-        group.position.copy(pos);
-
-        markers.push({
-            group,
-            rings: [],
-            glow: null,
-            label: markerDiv,
-            timeOffset: index * 0.8,
-            event
+        marker.addEventListener('mouseenter', () => {
+            showPopup(eventId, marker);
         });
 
-        return group;
-    }
+        marker.addEventListener('mouseleave', () => {
+            hidePopup();
+        });
+    });
 
     // --- POPULATE EVENT CARDS ---
     function populateEventCards() {
         const grid = document.getElementById('events-grid');
 
-        EVENTS.forEach((event, index) => {
+        EVENTS.forEach((event) => {
             const card = document.createElement('div');
             card.className = 'event-card';
-            card.dataset.index = index;
+            card.dataset.event = event.id;
 
             card.innerHTML = `
                 <div class="event-card-header">
@@ -1021,74 +902,29 @@
                 <span class="event-tag ${event.type}">${event.type}</span>
             `;
 
-            card.addEventListener('mouseenter', () => highlightMarker(index, true));
-            card.addEventListener('mouseleave', () => highlightMarker(index, false));
-            card.addEventListener('click', () => focusOnEvent(index));
+            card.addEventListener('mouseenter', () => {
+                // Highlight corresponding marker
+                const marker = document.querySelector(`.city-marker[data-event="${event.id}"]`);
+                if (marker) {
+                    marker.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                }
+                card.classList.add('active');
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const marker = document.querySelector(`.city-marker[data-event="${event.id}"]`);
+                if (marker) {
+                    marker.style.transform = 'translate(-50%, -50%)';
+                }
+                card.classList.remove('active');
+            });
 
             grid.appendChild(card);
         });
     }
 
-    function highlightMarker(index, highlight) {
-        const marker = markers[index];
-        if (!marker) return;
-
-        marker.group.scale.setScalar(highlight ? 1.6 : 1);
-
-        document.querySelectorAll('.event-card').forEach((card, i) => {
-            card.classList.toggle('active', i === index && highlight);
-        });
-    }
-
-    let mapGroup;
-
-    function focusOnEvent(index) {
-        const event = EVENTS[index];
-        const pos = translateCoords(event.lat, event.lon);
-        controls.target.set(pos.x - mapGroup.position.x, 0, pos.z - mapGroup.position.z);
-    }
-
-    // --- INIT ---
-    async function init() {
-        const grid = createGrid();
-        scene.add(grid);
-
-        mapGroup = await loadMap();
-        scene.add(mapGroup);
-
-        // Add connection lines between cities
-        const connections = createConnections(mapGroup);
-        mapGroup.add(connections);
-
-        EVENTS.forEach((event, index) => {
-            const marker = createEventMarker(event, index);
-            mapGroup.add(marker);
-        });
-
-        populateEventCards();
-
-        document.getElementById('loading').style.display = 'none';
-    }
-
-    init();
-
-    // --- ANIMATION ---
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-        labelRenderer.render(scene, camera);
-    }
-
-    animate();
-
-    // --- RESIZE ---
-    window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        labelRenderer.setSize(container.clientWidth, container.clientHeight);
-    });
+    // Initialize
+    populateEventCards();
 </script>
 </body>
 </html>

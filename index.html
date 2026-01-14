@@ -218,11 +218,17 @@
             font-size: 13px;
             font-weight: 500;
             white-space: nowrap;
-            pointer-events: none;
+            pointer-events: auto;
+            cursor: pointer;
             color: #311602;
             padding: 5px 10px 5px 8px;
             border-radius: 6px;
             background: linear-gradient(90deg, #f83 0%, #ffb380 100%);
+            transition: transform 0.15s ease;
+        }
+
+        .city-label:hover {
+            transform: scale(1.05);
         }
 
         .city-label::before {
@@ -249,6 +255,15 @@
             width: 240px;
             z-index: 10;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            pointer-events: none;
+        }
+
+        .event-popup.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
         .event-popup::before {
@@ -609,17 +624,17 @@
                 <div id="canvas-container"></div>
 
                 <!-- Floating Event Popup -->
-                <div class="event-popup">
-                    <h3>Black Hat USA</h3>
+                <div class="event-popup" id="event-popup">
+                    <h3 id="popup-title">Black Hat USA</h3>
                     <div class="event-popup-meta">
-                        <span>August 2, 2026</span>
+                        <span id="popup-date">August 2, 2026</span>
                         <span class="dot"></span>
                         <span class="event-popup-location">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
-                            Las Vegas, NV
+                            <span id="popup-location">Las Vegas, NV</span>
                         </span>
                     </div>
                     <a href="#" class="event-popup-link">
@@ -893,6 +908,38 @@
     // --- MARKERS ---
     const markers = [];
 
+    // Popup elements
+    const popup = document.getElementById('event-popup');
+    const popupTitle = document.getElementById('popup-title');
+    const popupDate = document.getElementById('popup-date');
+    const popupLocation = document.getElementById('popup-location');
+
+    function showPopup(event, labelElement) {
+        // Update popup content
+        popupTitle.textContent = event.name;
+        popupDate.textContent = event.fullDate;
+        popupLocation.textContent = `${event.city}`;
+
+        // Get label position relative to map container
+        const rect = labelElement.getBoundingClientRect();
+        const containerRect = document.querySelector('.map-wrapper').getBoundingClientRect();
+
+        // Position popup near the label
+        const popupLeft = rect.left - containerRect.left + rect.width / 2;
+        const popupTop = rect.bottom - containerRect.top + 30;
+
+        popup.style.left = `${popupLeft}px`;
+        popup.style.top = `${popupTop}px`;
+        popup.style.transform = 'translateX(-50%)';
+
+        // Show popup
+        popup.classList.add('visible');
+    }
+
+    function hidePopup() {
+        popup.classList.remove('visible');
+    }
+
     function createEventMarker(event, index) {
         const pos = translateCoords(event.lat, event.lon);
         const group = new THREE.Group();
@@ -901,6 +948,11 @@
         const labelDiv = document.createElement('div');
         labelDiv.className = 'city-label';
         labelDiv.textContent = event.city;
+
+        // Add hover events for popup
+        labelDiv.addEventListener('mouseenter', () => showPopup(event, labelDiv));
+        labelDiv.addEventListener('mouseleave', hidePopup);
+
         const label = new CSS2DObject(labelDiv);
         label.position.set(0, 0.5, 0);
         group.add(label);

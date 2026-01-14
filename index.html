@@ -773,10 +773,10 @@
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(CONFIG.colorBg);
-    scene.fog = new THREE.FogExp2(CONFIG.colorBg, 0.015);
+    scene.fog = new THREE.FogExp2(CONFIG.colorBg, 0.005);
 
     const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 60, 5);
+    camera.position.set(0, 38, 8);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -796,10 +796,10 @@
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.minDistance = 50;
-    controls.maxDistance = 70;
+    controls.minDistance = 30;
+    controls.maxDistance = 50;
     controls.minPolarAngle = Math.PI / 16;
-    controls.maxPolarAngle = Math.PI / 8;
+    controls.maxPolarAngle = Math.PI / 6;
     controls.autoRotate = false;
     controls.enablePan = false;
     controls.enableRotate = false;
@@ -927,13 +927,17 @@
         const rect = labelElement.getBoundingClientRect();
         const containerRect = document.querySelector('.map-wrapper').getBoundingClientRect();
 
-        // Position popup near the label
-        const popupLeft = rect.left - containerRect.left + rect.width / 2;
-        const popupTop = rect.bottom - containerRect.top + 30;
+        // Position popup centered below the label
+        const popupWidth = 240; // matches CSS width
+        let popupLeft = rect.left - containerRect.left + (rect.width / 2) - (popupWidth / 2);
+        const popupTop = rect.bottom - containerRect.top + 20;
+
+        // Keep popup within container bounds
+        popupLeft = Math.max(10, Math.min(popupLeft, containerRect.width - popupWidth - 10));
 
         popup.style.left = `${popupLeft}px`;
         popup.style.top = `${popupTop}px`;
-        popup.style.transform = 'translateX(-50%)';
+        popup.style.transform = 'none';
 
         // Show popup
         popup.classList.add('visible');

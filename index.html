@@ -747,53 +747,126 @@
      * 3. Use Webflow's embed to populate window.EVENTS before this script
      */
 
-    // --- CITY POSITION LOOKUP ---
-    // Map coordinates are designer-placed (from Figma), not geographic
-    // Add new cities here as needed - positions are relative to map center
-    const CITY_POSITIONS = {
+    // --- GEOGRAPHIC COORDINATES FOR US CITIES ---
+    // Using real lat/lng coordinates for accurate positioning
+    const CITY_COORDINATES = {
         // West Coast
-        'Seattle': { left: 'calc(50% - 253px)', top: 'calc(50% - 178.5px)', dotRight: false },
-        'San Francisco': { left: 'calc(50% - 267.31px)', top: 'calc(50% - 39.12px)', dotRight: false },
-        'Los Angeles': { left: 'calc(50% - 245px)', top: 'calc(50% + 45px)', dotRight: false },
-        'San Diego': { left: 'calc(50% - 230px)', top: 'calc(50% + 75px)', dotRight: false },
-        'Portland': { left: 'calc(50% - 260px)', top: 'calc(50% - 145px)', dotRight: false },
+        'Seattle': { lat: 47.6062, lng: -122.3321, dotRight: false },
+        'Portland': { lat: 45.5152, lng: -122.6784, dotRight: false },
+        'San Francisco': { lat: 37.7749, lng: -122.4194, dotRight: false },
+        'Los Angeles': { lat: 34.0522, lng: -118.2437, dotRight: false },
+        'San Diego': { lat: 32.7157, lng: -117.1611, dotRight: false },
 
         // Southwest
-        'Las Vegas': { left: 'calc(50% - 175px)', top: 'calc(50% + 10px)', dotRight: false },
-        'Phoenix': { left: 'calc(50% - 155px)', top: 'calc(50% + 95px)', dotRight: false },
-        'Denver': { left: 'calc(50% - 65px)', top: 'calc(50% + 10px)', dotRight: false },
-        'Salt Lake City': { left: 'calc(50% - 125px)', top: 'calc(50% - 35px)', dotRight: false },
+        'Las Vegas': { lat: 36.1699, lng: -115.1398, dotRight: false },
+        'Phoenix': { lat: 33.4484, lng: -112.0740, dotRight: false },
+        'Salt Lake City': { lat: 40.7608, lng: -111.8910, dotRight: false },
+        'Denver': { lat: 39.7392, lng: -104.9903, dotRight: false },
 
         // Texas
-        'Austin': { left: 'calc(50% + 37.69px)', top: 'calc(50% + 153.88px)', dotRight: false },
-        'Houston': { left: 'calc(50% + 85px)', top: 'calc(50% + 175px)', dotRight: false },
-        'Dallas': { left: 'calc(50% + 55px)', top: 'calc(50% + 120px)', dotRight: false },
-        'San Antonio': { left: 'calc(50% + 25px)', top: 'calc(50% + 180px)', dotRight: false },
+        'Austin': { lat: 30.2672, lng: -97.7431, dotRight: false },
+        'Houston': { lat: 29.7604, lng: -95.3698, dotRight: false },
+        'Dallas': { lat: 32.7767, lng: -96.7970, dotRight: false },
+        'San Antonio': { lat: 29.4241, lng: -98.4936, dotRight: false },
 
         // Midwest
-        'Chicago': { left: 'calc(50% + 135px)', top: 'calc(50% - 25px)', dotRight: true },
-        'Minneapolis': { left: 'calc(50% + 75px)', top: 'calc(50% - 95px)', dotRight: false },
-        'Detroit': { left: 'calc(50% + 185px)', top: 'calc(50% - 55px)', dotRight: true },
-        'St. Louis': { left: 'calc(50% + 95px)', top: 'calc(50% + 25px)', dotRight: false },
-        'Kansas City': { left: 'calc(50% + 45px)', top: 'calc(50% + 35px)', dotRight: false },
+        'Chicago': { lat: 41.8781, lng: -87.6298, dotRight: true },
+        'Minneapolis': { lat: 44.9778, lng: -93.2650, dotRight: false },
+        'Detroit': { lat: 42.3314, lng: -83.0458, dotRight: true },
+        'St. Louis': { lat: 38.6270, lng: -90.1994, dotRight: false },
+        'Kansas City': { lat: 39.0997, lng: -94.5786, dotRight: false },
+        'Indianapolis': { lat: 39.7684, lng: -86.1581, dotRight: false },
+        'Columbus': { lat: 39.9612, lng: -82.9988, dotRight: true },
 
         // East Coast
-        'New York': { left: 'calc(50% + 241.19px)', top: 'calc(50% - 84.12px)', dotRight: true },
-        'Boston': { left: 'calc(50% + 275px)', top: 'calc(50% - 115px)', dotRight: true },
-        'Philadelphia': { left: 'calc(50% + 245px)', top: 'calc(50% - 55px)', dotRight: true },
-        'Washington DC': { left: 'calc(50% + 235px)', top: 'calc(50% - 25px)', dotRight: true },
-        'Baltimore': { left: 'calc(50% + 240px)', top: 'calc(50% - 35px)', dotRight: true },
+        'New York': { lat: 40.7128, lng: -74.0060, dotRight: true },
+        'Boston': { lat: 42.3601, lng: -71.0589, dotRight: true },
+        'Philadelphia': { lat: 39.9526, lng: -75.1652, dotRight: true },
+        'Washington DC': { lat: 38.9072, lng: -77.0369, dotRight: true },
+        'Baltimore': { lat: 39.2904, lng: -76.6122, dotRight: true },
 
         // Southeast
-        'Miami': { left: 'calc(50% + 215px)', top: 'calc(50% + 165px)', dotRight: true },
-        'Atlanta': { left: 'calc(50% + 195px)', top: 'calc(50% + 85px)', dotRight: true },
-        'Charlotte': { left: 'calc(50% + 225px)', top: 'calc(50% + 45px)', dotRight: true },
-        'Nashville': { left: 'calc(50% + 155px)', top: 'calc(50% + 55px)', dotRight: true },
-        'New Orleans': { left: 'calc(50% + 115px)', top: 'calc(50% + 155px)', dotRight: false },
-        'Tampa': { left: 'calc(50% + 245px)', top: 'calc(50% + 155px)', dotRight: true },
-        'Orlando': { left: 'calc(50% + 255px)', top: 'calc(50% + 135px)', dotRight: true },
-        'Raleigh': { left: 'calc(50% + 235px)', top: 'calc(50% + 25px)', dotRight: true },
+        'Miami': { lat: 25.7617, lng: -80.1918, dotRight: true },
+        'Atlanta': { lat: 33.7490, lng: -84.3880, dotRight: true },
+        'Charlotte': { lat: 35.2271, lng: -80.8431, dotRight: true },
+        'Nashville': { lat: 36.1627, lng: -86.7816, dotRight: false },
+        'New Orleans': { lat: 29.9511, lng: -90.0715, dotRight: false },
+        'Tampa': { lat: 27.9506, lng: -82.4572, dotRight: true },
+        'Orlando': { lat: 28.5383, lng: -81.3792, dotRight: true },
+        'Raleigh': { lat: 35.7796, lng: -78.6382, dotRight: true },
+        'Jacksonville': { lat: 30.3322, lng: -81.6557, dotRight: true },
     };
+
+    // SVG map dimensions (from viewBox)
+    const SVG_WIDTH = 699;
+    const SVG_HEIGHT = 473;
+
+    // Manual position adjustments for cities where projection needs fine-tuning
+    // The SVG map uses a conic projection that compresses certain latitude bands
+    const CITY_ADJUSTMENTS = {
+        // Northeast cities need to move up (negative dy) to match SVG state boundaries
+        'New York': { dx: 0, dy: -25 },
+        'Boston': { dx: 0, dy: -20 },
+        'Philadelphia': { dx: 0, dy: -15 },
+        'Washington DC': { dx: 0, dy: -10 },
+        'Baltimore': { dx: 0, dy: -12 },
+        'Charlotte': { dx: 0, dy: -8 },
+        'Raleigh': { dx: 0, dy: -10 },
+        // Florida cities need minor adjustment
+        'Miami': { dx: 0, dy: -8 },
+        'Tampa': { dx: 0, dy: -5 },
+        'Orlando': { dx: 0, dy: -5 },
+        'Jacksonville': { dx: 0, dy: -5 },
+        // Northwest adjustment
+        'Seattle': { dx: 0, dy: 8 },
+        'Portland': { dx: 0, dy: 5 },
+    };
+
+    // Project lat/lng to SVG pixel coordinates
+    // Calibrated to match the Figma US map SVG
+    function projectToSvg(lat, lng) {
+        // Continental US bounds calibrated for this specific SVG
+        const minLng = -125.5;
+        const maxLng = -66.0;
+        const minLat = 24.0;
+        const maxLat = 49.5;
+
+        // Basic linear projection
+        let x = ((lng - minLng) / (maxLng - minLng)) * SVG_WIDTH;
+        let y = ((maxLat - lat) / (maxLat - minLat)) * SVG_HEIGHT;
+
+        return { x, y };
+    }
+
+    // Get city position for marker placement
+    // Returns CSS values relative to container center
+    function getCityPosition(city) {
+        const coords = CITY_COORDINATES[city];
+        if (!coords) return null;
+
+        let { x, y } = projectToSvg(coords.lat, coords.lng);
+
+        // Apply manual adjustments if defined
+        const adjustment = CITY_ADJUSTMENTS[city];
+        if (adjustment) {
+            x += adjustment.dx;
+            y += adjustment.dy;
+        }
+
+        // Container center (SVG fills the container)
+        const centerX = SVG_WIDTH / 2;
+        const centerY = SVG_HEIGHT / 2;
+
+        // Calculate offset from center
+        const offsetX = x - centerX;
+        const offsetY = y - centerY;
+
+        return {
+            left: `calc(50% + ${offsetX.toFixed(1)}px)`,
+            top: `calc(50% + ${offsetY.toFixed(1)}px)`,
+            dotRight: coords.dotRight
+        };
+    }
 
     // --- EVENTS DATA ---
     // Replace this with Webflow CMS data or set window.EVENTS before this script
@@ -889,9 +962,9 @@
 
         // Create a marker for each city that has events
         Object.entries(citiesWithEvents).forEach(([city, events]) => {
-            const position = CITY_POSITIONS[city];
+            const position = getCityPosition(city);
             if (!position) {
-                console.warn(`No position defined for city: ${city}. Add it to CITY_POSITIONS.`);
+                console.warn(`No coordinates defined for city: ${city}. Add it to CITY_COORDINATES.`);
                 return;
             }
 

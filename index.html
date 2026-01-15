@@ -192,11 +192,11 @@
             background: #f5f5f5;
         }
 
-        /* Map Container - Figma exact dimensions */
+        /* Map Container - matches SVG viewBox aspect ratio for marker alignment */
         .map-container {
             position: relative;
-            width: 698px;
-            height: 478px;
+            width: 699px;
+            height: 473px;
         }
 
         .map-header-label {
@@ -229,7 +229,7 @@
         .map-image svg {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            /* SVG fills container exactly - no scaling/centering padding */
         }
 
         /* State styling - Figma SVG states */
@@ -839,7 +839,7 @@
     }
 
     // Get city position for marker placement
-    // Returns CSS values relative to container center
+    // Returns CSS percentage values for positioning within the map container
     function getCityPosition(city) {
         const coords = CITY_COORDINATES[city];
         if (!coords) return null;
@@ -853,17 +853,14 @@
             y += adjustment.dy;
         }
 
-        // Container center (SVG fills the container)
-        const centerX = SVG_WIDTH / 2;
-        const centerY = SVG_HEIGHT / 2;
-
-        // Calculate offset from center
-        const offsetX = x - centerX;
-        const offsetY = y - centerY;
+        // Convert to percentages relative to SVG viewBox
+        // This ensures correct positioning regardless of container scaling
+        const leftPercent = (x / SVG_WIDTH) * 100;
+        const topPercent = (y / SVG_HEIGHT) * 100;
 
         return {
-            left: `calc(50% + ${offsetX.toFixed(1)}px)`,
-            top: `calc(50% + ${offsetY.toFixed(1)}px)`,
+            left: `${leftPercent.toFixed(2)}%`,
+            top: `${topPercent.toFixed(2)}%`,
             dotRight: coords.dotRight
         };
     }

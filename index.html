@@ -747,121 +747,88 @@
      * 3. Use Webflow's embed to populate window.EVENTS before this script
      */
 
-    // --- GEOGRAPHIC COORDINATES FOR US CITIES ---
-    // Using real lat/lng coordinates for accurate positioning
-    const CITY_COORDINATES = {
+    // --- CITY POSITIONS RELATIVE TO STATE BOUNDING BOXES ---
+    // This uses the actual SVG state paths for positioning
+    // relX/relY are fractions (0-1) of where the city is within the state's bounding box
+    const CITY_STATE_POSITIONS = {
         // West Coast
-        'Seattle': { lat: 47.6062, lng: -122.3321, dotRight: false },
-        'Portland': { lat: 45.5152, lng: -122.6784, dotRight: false },
-        'San Francisco': { lat: 37.7749, lng: -122.4194, dotRight: false },
-        'Los Angeles': { lat: 34.0522, lng: -118.2437, dotRight: false },
-        'San Diego': { lat: 32.7157, lng: -117.1611, dotRight: false },
+        'Seattle': { state: 'WA', relX: 0.35, relY: 0.45, dotRight: false },
+        'Portland': { state: 'OR', relX: 0.25, relY: 0.15, dotRight: false },
+        'San Francisco': { state: 'CA', relX: 0.15, relY: 0.30, dotRight: false },
+        'Los Angeles': { state: 'CA', relX: 0.35, relY: 0.70, dotRight: false },
+        'San Diego': { state: 'CA', relX: 0.45, relY: 0.85, dotRight: false },
 
         // Southwest
-        'Las Vegas': { lat: 36.1699, lng: -115.1398, dotRight: false },
-        'Phoenix': { lat: 33.4484, lng: -112.0740, dotRight: false },
-        'Salt Lake City': { lat: 40.7608, lng: -111.8910, dotRight: false },
-        'Denver': { lat: 39.7392, lng: -104.9903, dotRight: false },
+        'Las Vegas': { state: 'NV', relX: 0.55, relY: 0.75, dotRight: false },
+        'Phoenix': { state: 'AZ', relX: 0.55, relY: 0.55, dotRight: false },
+        'Salt Lake City': { state: 'UT', relX: 0.35, relY: 0.25, dotRight: false },
+        'Denver': { state: 'CO', relX: 0.45, relY: 0.35, dotRight: false },
 
         // Texas
-        'Austin': { lat: 30.2672, lng: -97.7431, dotRight: false },
-        'Houston': { lat: 29.7604, lng: -95.3698, dotRight: false },
-        'Dallas': { lat: 32.7767, lng: -96.7970, dotRight: false },
-        'San Antonio': { lat: 29.4241, lng: -98.4936, dotRight: false },
+        'Austin': { state: 'TX', relX: 0.45, relY: 0.65, dotRight: false },
+        'Houston': { state: 'TX', relX: 0.60, relY: 0.75, dotRight: false },
+        'Dallas': { state: 'TX', relX: 0.50, relY: 0.35, dotRight: false },
+        'San Antonio': { state: 'TX', relX: 0.40, relY: 0.75, dotRight: false },
 
         // Midwest
-        'Chicago': { lat: 41.8781, lng: -87.6298, dotRight: true },
-        'Minneapolis': { lat: 44.9778, lng: -93.2650, dotRight: false },
-        'Detroit': { lat: 42.3314, lng: -83.0458, dotRight: true },
-        'St. Louis': { lat: 38.6270, lng: -90.1994, dotRight: false },
-        'Kansas City': { lat: 39.0997, lng: -94.5786, dotRight: false },
-        'Indianapolis': { lat: 39.7684, lng: -86.1581, dotRight: false },
-        'Columbus': { lat: 39.9612, lng: -82.9988, dotRight: true },
+        'Chicago': { state: 'IL', relX: 0.75, relY: 0.15, dotRight: true },
+        'Minneapolis': { state: 'MN', relX: 0.55, relY: 0.55, dotRight: false },
+        'Detroit': { state: 'MI', relX: 0.75, relY: 0.65, dotRight: true },
+        'St. Louis': { state: 'MO', relX: 0.75, relY: 0.45, dotRight: false },
+        'Kansas City': { state: 'MO', relX: 0.15, relY: 0.35, dotRight: false },
+        'Indianapolis': { state: 'IN', relX: 0.50, relY: 0.50, dotRight: false },
+        'Columbus': { state: 'OH', relX: 0.55, relY: 0.50, dotRight: true },
 
         // East Coast
-        'New York': { lat: 40.7128, lng: -74.0060, dotRight: true },
-        'Boston': { lat: 42.3601, lng: -71.0589, dotRight: true },
-        'Philadelphia': { lat: 39.9526, lng: -75.1652, dotRight: true },
-        'Washington DC': { lat: 38.9072, lng: -77.0369, dotRight: true },
-        'Baltimore': { lat: 39.2904, lng: -76.6122, dotRight: true },
+        'New York': { state: 'NY', relX: 0.85, relY: 0.85, dotRight: true },
+        'Boston': { state: 'MA', relX: 0.65, relY: 0.50, dotRight: true },
+        'Philadelphia': { state: 'PA', relX: 0.85, relY: 0.65, dotRight: true },
+        'Washington DC': { state: 'MD', relX: 0.55, relY: 0.55, dotRight: true },
+        'Baltimore': { state: 'MD', relX: 0.65, relY: 0.35, dotRight: true },
 
         // Southeast
-        'Miami': { lat: 25.7617, lng: -80.1918, dotRight: true },
-        'Atlanta': { lat: 33.7490, lng: -84.3880, dotRight: true },
-        'Charlotte': { lat: 35.2271, lng: -80.8431, dotRight: true },
-        'Nashville': { lat: 36.1627, lng: -86.7816, dotRight: false },
-        'New Orleans': { lat: 29.9511, lng: -90.0715, dotRight: false },
-        'Tampa': { lat: 27.9506, lng: -82.4572, dotRight: true },
-        'Orlando': { lat: 28.5383, lng: -81.3792, dotRight: true },
-        'Raleigh': { lat: 35.7796, lng: -78.6382, dotRight: true },
-        'Jacksonville': { lat: 30.3322, lng: -81.6557, dotRight: true },
+        'Miami': { state: 'FL', relX: 0.70, relY: 0.92, dotRight: true },
+        'Atlanta': { state: 'GA', relX: 0.40, relY: 0.35, dotRight: true },
+        'Charlotte': { state: 'NC', relX: 0.55, relY: 0.45, dotRight: true },
+        'Nashville': { state: 'TN', relX: 0.40, relY: 0.45, dotRight: false },
+        'New Orleans': { state: 'LA', relX: 0.65, relY: 0.80, dotRight: false },
+        'Tampa': { state: 'FL', relX: 0.45, relY: 0.55, dotRight: true },
+        'Orlando': { state: 'FL', relX: 0.55, relY: 0.45, dotRight: true },
+        'Raleigh': { state: 'NC', relX: 0.70, relY: 0.45, dotRight: true },
+        'Jacksonville': { state: 'FL', relX: 0.60, relY: 0.15, dotRight: true },
     };
 
     // SVG map dimensions (from viewBox)
     const SVG_WIDTH = 699;
     const SVG_HEIGHT = 473;
 
-    // Manual position adjustments for cities where projection needs fine-tuning
-    // The SVG map uses a conic projection that compresses certain latitude bands
-    const CITY_ADJUSTMENTS = {
-        // Northeast cities need to move up (negative dy) to match SVG state boundaries
-        'New York': { dx: 0, dy: -25 },
-        'Boston': { dx: 0, dy: -20 },
-        'Philadelphia': { dx: 0, dy: -15 },
-        'Washington DC': { dx: 0, dy: -10 },
-        'Baltimore': { dx: 0, dy: -12 },
-        'Charlotte': { dx: 0, dy: -8 },
-        'Raleigh': { dx: 0, dy: -10 },
-        // Florida cities need minor adjustment
-        'Miami': { dx: 0, dy: -8 },
-        'Tampa': { dx: 0, dy: -5 },
-        'Orlando': { dx: 0, dy: -5 },
-        'Jacksonville': { dx: 0, dy: -5 },
-        // Northwest adjustment
-        'Seattle': { dx: 0, dy: 8 },
-        'Portland': { dx: 0, dy: 5 },
-    };
+    // Cache for state bounding boxes (populated after SVG loads)
+    let stateBBoxCache = {};
 
-    // Project lat/lng to SVG pixel coordinates
-    // Calibrated to match the Figma US map SVG
-    function projectToSvg(lat, lng) {
-        // Continental US bounds calibrated for this specific SVG
-        const minLng = -125.5;
-        const maxLng = -66.0;
-        const minLat = 24.0;
-        const maxLat = 49.5;
+    // Get city position using the actual SVG state bounding box
+    // This is called AFTER the SVG is loaded
+    function getCityPositionFromSvg(city) {
+        const cityInfo = CITY_STATE_POSITIONS[city];
+        if (!cityInfo) return null;
 
-        // Basic linear projection
-        let x = ((lng - minLng) / (maxLng - minLng)) * SVG_WIDTH;
-        let y = ((maxLat - lat) / (maxLat - minLat)) * SVG_HEIGHT;
-
-        return { x, y };
-    }
-
-    // Get city position for marker placement
-    // Returns CSS percentage values for positioning within the map container
-    function getCityPosition(city) {
-        const coords = CITY_COORDINATES[city];
-        if (!coords) return null;
-
-        let { x, y } = projectToSvg(coords.lat, coords.lng);
-
-        // Apply manual adjustments if defined
-        const adjustment = CITY_ADJUSTMENTS[city];
-        if (adjustment) {
-            x += adjustment.dx;
-            y += adjustment.dy;
+        const bbox = stateBBoxCache[cityInfo.state];
+        if (!bbox) {
+            console.warn(`No bounding box found for state: ${cityInfo.state}`);
+            return null;
         }
 
-        // Convert to percentages relative to SVG viewBox
-        // This ensures correct positioning regardless of container scaling
+        // Calculate pixel position within the state's bounding box
+        const x = bbox.x + bbox.width * cityInfo.relX;
+        const y = bbox.y + bbox.height * cityInfo.relY;
+
+        // Convert to percentage of SVG viewBox
         const leftPercent = (x / SVG_WIDTH) * 100;
         const topPercent = (y / SVG_HEIGHT) * 100;
 
         return {
             left: `${leftPercent.toFixed(2)}%`,
             top: `${topPercent.toFixed(2)}%`,
-            dotRight: coords.dotRight
+            dotRight: cityInfo.dotRight
         };
     }
 
@@ -947,6 +914,9 @@
 
     // --- CREATE MAP MARKERS ---
     function createMarkers() {
+        // Clear existing markers
+        markersContainer.innerHTML = '';
+
         // Group events by city to avoid duplicate markers
         const citiesWithEvents = {};
         EVENTS.forEach((event, index) => {
@@ -959,9 +929,9 @@
 
         // Create a marker for each city that has events
         Object.entries(citiesWithEvents).forEach(([city, events]) => {
-            const position = getCityPosition(city);
+            const position = getCityPositionFromSvg(city);
             if (!position) {
-                console.warn(`No coordinates defined for city: ${city}. Add it to CITY_COORDINATES.`);
+                console.warn(`No position found for city: ${city}. Add it to CITY_STATE_POSITIONS.`);
                 return;
             }
 
@@ -1125,6 +1095,36 @@
             const svgText = await response.text();
             container.innerHTML = svgText;
 
+            // Get SVG element
+            const svgElement = container.querySelector('svg');
+
+            // Cache bounding boxes for ALL state paths
+            // This is needed for accurate marker positioning
+            const stateIds = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+                             'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+                             'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+                             'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+                             'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY', 'DC'];
+
+            stateIds.forEach(stateId => {
+                const statePath = container.querySelector(`#${stateId}`);
+                if (statePath) {
+                    try {
+                        const bbox = statePath.getBBox();
+                        stateBBoxCache[stateId] = {
+                            x: bbox.x,
+                            y: bbox.y,
+                            width: bbox.width,
+                            height: bbox.height
+                        };
+                    } catch (e) {
+                        // Some paths might not have valid bounding boxes
+                    }
+                }
+            });
+
+            console.log('State bounding boxes cached:', Object.keys(stateBBoxCache).length);
+
             // Highlight states with events
             activeStates.forEach(stateAbbr => {
                 // Find path with matching state ID
@@ -1138,6 +1138,10 @@
                     statePath2.classList.add('active');
                 }
             });
+
+            // NOW create markers - after bounding boxes are cached
+            createMarkers();
+
         } catch (error) {
             console.error('Failed to load map:', error);
             container.innerHTML = '<div style="color: #666; text-align: center; padding-top: 200px;">Map loading...</div>';
@@ -1146,7 +1150,6 @@
 
     // --- INITIALIZE ---
     renderMap();
-    createMarkers();
     populateEventCards();
 </script>
 </body>
